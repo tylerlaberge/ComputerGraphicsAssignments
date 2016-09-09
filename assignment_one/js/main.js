@@ -25,46 +25,14 @@ window.onload = function(){
 
     /* Step3: Create and compile Shader programs */
 
-    // Vertex shader source code
-    var vertCode =
-        'attribute vec2 coordinates;' +
-        'void main(void) {' + ' gl_Position = vec4(coordinates,0.0, 1.0);' + '}';
+    var vertex_shader = new VertexShader(gl);
+    vertex_shader.init();
 
-    //Create a vertex shader object
-    var vertShader = gl.createShader(gl.VERTEX_SHADER);
+    var fragment_shader = new FragmentShader(gl);
+    fragment_shader.init();
 
-    //Attach vertex shader source code
-    gl.shaderSource(vertShader, vertCode);
-
-    //Compile the vertex shader
-    gl.compileShader(vertShader);
-
-    //Fragment shader source code
-    var fragCode = 'void main(void) {' + 'gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-
-    // Create fragment shader object
-    var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
-
-    // Attach fragment shader source code
-    gl.shaderSource(fragShader, fragCode);
-
-    // Compile the fragment shader
-    gl.compileShader(fragShader);
-
-    // Create a shader program object to store combined shader program
-    var shaderProgram = gl.createProgram();
-
-    // Attach a vertex shader
-    gl.attachShader(shaderProgram, vertShader);
-
-    // Attach a fragment shader
-    gl.attachShader(shaderProgram, fragShader);
-
-    // Link both programs
-    gl.linkProgram(shaderProgram);
-
-    // Use the combined shader program object
-    gl.useProgram(shaderProgram);
+    var shader_program = new ShaderProgram(gl, vertex_shader, fragment_shader);
+    shader_program.init();
 
 
     /* Step 4: Associate the shader programs to buffer objects */
@@ -73,7 +41,7 @@ window.onload = function(){
     gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
 
     //Get the attribute location
-    var coord = gl.getAttribLocation(shaderProgram, "coordinates");
+    var coord = gl.getAttribLocation(shader_program.gl_shader_program, "coordinates");
 
     //point an attribute to the currently bound VBO
     gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 0, 0);
@@ -98,6 +66,7 @@ window.onload = function(){
 
     // Draw the triangle
     gl.drawArrays(gl.TRIANGLES, 0, 3);
+
     function initWebGL(canvas) {
         var gl = null;
         // Try to grab the standard context. If it fails, fallback to experimental.
