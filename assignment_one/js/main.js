@@ -1,6 +1,5 @@
 window.onload = function(){
 
-
     /* Step1: Prepare the canvas and get WebGL context */
 
     var canvas = document.getElementById('my_canvas');
@@ -8,20 +7,8 @@ window.onload = function(){
 
     /* Step2: Define the geometry and store it in buffer objects */
 
-    var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
-
-    // Create a new buffer object
-    var vertex_buffer = gl.createBuffer();
-
-    // Bind an empty array buffer to it
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
-
-    // Pass the vertices data to the buffer
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-
-    // Unbind the buffer
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
+    var triangle = new Triangle(gl, [-0.5, 0.5], [-0.5, 0], [0.7, 0]);
+    triangle.buffer();
 
     /* Step3: Create and compile Shader programs */
 
@@ -34,48 +21,12 @@ window.onload = function(){
     var shader_program = new ShaderProgram(gl, vertex_shader, fragment_shader);
     shader_program.init();
 
-
     /* Step 4: Associate the shader programs to buffer objects */
-
-    //Bind vertex buffer object
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
-
-    //Get the attribute location
-    var coord = gl.getAttribLocation(shader_program.gl_shader_program, "coordinates");
-
-    //point an attribute to the currently bound VBO
-    gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 0, 0);
-
-    //Enable the attribute
-    gl.enableVertexAttribArray(coord);
-
+    triangle.buffer_object.bind();
+    initAttributes(gl, shader_program.gl_shader_program);
 
     /* Step5: Drawing the required object (triangle) */
 
-    // Clear the canvas
-    gl.clearColor(0.5, 0.5, 0.5, 0.9);
-
-    // Enable the depth test
-    gl.enable(gl.DEPTH_TEST);
-
-    // Clear the color buffer bit
-    gl.clear(gl.COLOR_BUFFER_BIT);
-
-    // Set the view port
-    gl.viewport(0,0,canvas.width,canvas.height);
-
-    // Draw the triangle
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-    function initWebGL(canvas) {
-        var gl = null;
-        // Try to grab the standard context. If it fails, fallback to experimental.
-        gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-
-        // If we don't have a GL context, give up now
-        if (!gl) {
-            alert("Unable to initialize WebGL. Your browser may not support it.");
-        }
-        return gl;
-    }
+    prepareToDraw(gl, canvas);
+    triangle.draw();
 };
