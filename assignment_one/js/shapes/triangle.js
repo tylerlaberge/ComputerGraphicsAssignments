@@ -27,6 +27,9 @@ Triangle.prototype.buffer = function () {
         this.color_c[0], this.color_c[1], this.color_c[2], this.color_c[3]
     ]);
 };
+Triangle.prototype.setViewport = function (x, y, width, height) {
+    this.gl.viewport(x, y, width, height);
+};
 Triangle.prototype.draw = function () {
     this.vertex_buffer.bind();
     this.gl.vertexAttribPointer(this.shader_program.vertex_position_attribute, 3, this.gl.FLOAT, false, 0, 0);

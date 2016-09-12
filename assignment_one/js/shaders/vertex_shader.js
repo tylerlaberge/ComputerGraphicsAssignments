@@ -9,6 +9,7 @@ function VertexShader(gl){
         "vColor = aVertexColor;" +
         "}";
     this.gl_shader = this.gl.createShader(gl.VERTEX_SHADER);
+    this.init();
 }
 VertexShader.prototype = Object.create(Shader.prototype);
 

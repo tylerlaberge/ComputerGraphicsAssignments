@@ -7,6 +7,7 @@ function FragmentShader(gl){
         "gl_FragColor = vColor;" +
         "}";
     this.gl_shader = this.gl.createShader(gl.FRAGMENT_SHADER);
+    this.init();
 }
 FragmentShader.prototype = Object.create(Shader.prototype);
 
