@@ -3,15 +3,9 @@ window.onload = function(){
     /* Step1: Prepare the canvas and get WebGL context */
 
     var canvas = document.getElementById('my_canvas');
-    var gl = initWebGL(canvas);
+    var gl = WebGLUtility.initWebGL(canvas);
 
-    /* Step2: Define the geometry and store it in buffer objects */
-
-    var triangle = new Triangle(gl, [-0.5, 0.5], [-0.5, 0], [0.7, 0]);
-    triangle.buffer();
-
-    /* Step3: Create and compile Shader programs */
-
+    /* Step2: Create and compile Shader programs */
     var vertex_shader = new VertexShader(gl);
     vertex_shader.init();
 
@@ -21,12 +15,17 @@ window.onload = function(){
     var shader_program = new ShaderProgram(gl, vertex_shader, fragment_shader);
     shader_program.init();
 
-    /* Step 4: Associate the shader programs to buffer objects */
-    triangle.buffer_object.bind();
-    initAttributes(gl, shader_program.gl_shader_program);
+    /* Step3: Define the geometry and store it in buffer objects */
 
-    /* Step5: Drawing the required object (triangle) */
+    var triangle = new Triangle(
+        gl, shader_program,
+        [-0.5, 0.5, 0.0], [-0.5, 0, 0.0], [0.7, 0, 0.0],
+        [1.0, 0.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0], [0.0, 0.0, 1.0, 1.0]
+    );
+    triangle.buffer();
 
-    prepareToDraw(gl, canvas);
+    /* Step4: Drawing the required object (triangle) */
+
+    WebGLUtility.prepareToDraw(gl, canvas);
     triangle.draw();
 };

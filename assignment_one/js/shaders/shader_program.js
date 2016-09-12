@@ -3,6 +3,8 @@ function ShaderProgram(gl, vertex_shader, fragment_shader){
     this.vertex_shader = vertex_shader;
     this.fragment_shader = fragment_shader;
     this.gl_shader_program = this.gl.createProgram();
+    this.vertex_position_attribute = null;
+    this.vertex_color_attribute = null;
 }
 ShaderProgram.prototype.init = function () {
     // Attach a vertex shader
@@ -16,4 +18,10 @@ ShaderProgram.prototype.init = function () {
 
     // Use the combined shader program object
     this.gl.useProgram(this.gl_shader_program);
+
+    this.vertex_position_attribute = this.gl.getAttribLocation(this.gl_shader_program, "vPosition");
+    this.vertex_color_attribute = this.gl.getAttribLocation(this.gl_shader_program, "aVertexColor");
+
+    this.gl.enableVertexAttribArray(this.vertex_position_attribute);
+    this.gl.enableVertexAttribArray(this.vertex_color_attribute);
 };

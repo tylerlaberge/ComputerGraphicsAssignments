@@ -1,7 +1,14 @@
 function VertexShader(gl){
     Shader.call(this, gl);
-    this.source_code = 'attribute vec2 coordinates;' +
-        'void main(void) {' + ' gl_Position = vec4(coordinates,0.0, 1.0);' + '}';
+    this.source_code =
+        "attribute vec4 vPosition;" +
+        "attribute vec4 aVertexColor;" +
+        "varying vec4 vColor;" +
+        "void main(void) {" +
+        "gl_Position = vPosition;" +
+        "vColor = aVertexColor;" +
+        "}";
     this.gl_shader = this.gl.createShader(gl.VERTEX_SHADER);
 }
 VertexShader.prototype = Object.create(Shader.prototype);
+

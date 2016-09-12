@@ -2,9 +2,9 @@ function Buffer(gl){
     this.gl = gl;
     this.gl_buffer = this.gl.createBuffer();
 }
-Buffer.prototype.buffer_vertices = function (vertices) {
+Buffer.prototype.buffer_data = function (data) {
     this.bind();
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(data), this.gl.STATIC_DRAW);
     this.unbind();
 };
 Buffer.prototype.bind = function () {
