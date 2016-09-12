@@ -4,39 +4,27 @@ function Triangle(
     vertex_a, vertex_b, vertex_c,
     color_a, color_b, color_c
 ){
-    this.gl = gl;
-    this.shader_program = shader_program;
-    this.vertex_buffer = new Buffer(this.gl);
-    this.color_buffer = new Buffer(this.gl);
-    this.vertex_a = vertex_a;
-    this.vertex_b = vertex_b;
-    this.vertex_c = vertex_c;
-    this.color_a = color_a;
-    this.color_b = color_b;
-    this.color_c = color_c;
+    Shape.call(
+        this,
+        gl,
+        shader_program,
+        [
+            vertex_a[0], vertex_a[1], vertex_a[2],
+            vertex_b[0], vertex_b[1], vertex_b[2],
+            vertex_c[0], vertex_c[1], vertex_c[2]
+        ],
+        3,
+        [
+            color_a[0], color_a[1], color_a[2], color_a[3],
+            color_b[0], color_b[1], color_b[2], color_b[3],
+            color_c[0], color_c[1], color_c[2], color_c[3]
+        ],
+        4
+    );
 }
-Triangle.prototype.buffer = function () {
-    this.vertex_buffer.buffer_data([
-        this.vertex_a[0], this.vertex_a[1], this.vertex_a[2],
-        this.vertex_b[0], this.vertex_b[1], this.vertex_b[2],
-        this.vertex_c[0], this.vertex_c[1], this.vertex_c[2]
-    ]);
-    this.color_buffer.buffer_data([
-        this.color_a[0], this.color_a[1], this.color_a[2], this.color_a[3],
-        this.color_b[0], this.color_b[1], this.color_b[2], this.color_b[3],
-        this.color_c[0], this.color_c[1], this.color_c[2], this.color_c[3]
-    ]);
-};
-Triangle.prototype.setViewport = function (x, y, width, height) {
-    this.gl.viewport(x, y, width, height);
-};
+Triangle.prototype = Object.create(Shape.prototype);
 Triangle.prototype.draw = function () {
-    this.vertex_buffer.bind();
-    this.gl.vertexAttribPointer(this.shader_program.vertex_position_attribute, 3, this.gl.FLOAT, false, 0, 0);
-    this.color_buffer.bind();
-    this.gl.vertexAttribPointer(this.shader_program.vertex_color_attribute, 4, this.gl.FLOAT, false, 0, 0);
-
+    this.prepare_to_draw();
     this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
-    this.vertex_buffer.unbind();
-    this.color_buffer.unbind();
+    this.finish_drawing();
 };
