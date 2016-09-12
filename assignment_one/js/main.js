@@ -6,13 +6,8 @@ window.onload = function(){
     var gl = WebGLUtility.initWebGL(canvas);
 
     /* Step2: Create and compile Shader programs */
-    var vertex_shader = new VertexShader(gl);
-    vertex_shader.init();
 
-    var fragment_shader = new FragmentShader(gl);
-    fragment_shader.init();
-
-    var shader_program = new ShaderProgram(gl, vertex_shader, fragment_shader);
+    var shader_program = new ShaderProgram(gl, new VertexShader(gl), new FragmentShader(gl));
     shader_program.init();
 
     /* Step3: Define the geometry and store it in buffer objects */

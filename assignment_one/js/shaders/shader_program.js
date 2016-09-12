@@ -7,6 +7,10 @@ function ShaderProgram(gl, vertex_shader, fragment_shader){
     this.vertex_color_attribute = null;
 }
 ShaderProgram.prototype.init = function () {
+    //init shaders
+    this.vertex_shader.init();
+    this.fragment_shader.init();
+
     // Attach a vertex shader
     this.gl.attachShader(this.gl_shader_program, this.vertex_shader.gl_shader);
 
