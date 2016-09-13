@@ -5,6 +5,14 @@ function Artist(gl, shader_program) {
 Artist.prototype.set_viewport = function (x, y, width, height) {
     this.gl.viewport(x, y, width, height);
 };
+Artist.prototype.draw_circle = function (center_vertex, color, radius) {
+    var circle = new Circle(
+        this.gl, this.shader_program,
+        center_vertex, color, radius
+    );
+    circle.buffer();
+    circle.draw();
+};
 Artist.prototype.draw_triangle = function (vertex_a, vertex_b, vertex_c, color_a, color_b, color_c) {
     var triangle = new Triangle(
         this.gl, this.shader_program,
