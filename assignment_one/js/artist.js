@@ -28,13 +28,17 @@ Artist.prototype.draw_squares = function (vertex_a, vertex_b, vertex_c, vertex_d
 
     if (recursion_depth > 1) {
         var scale = .025;
+        var color_scale = .85;
         this.draw_squares
         (
             [vertex_a[0] + scale, vertex_a[1] + scale, vertex_a[2] - scale],
             [vertex_b[0] - scale, vertex_b[1] + scale, vertex_b[2] - scale],
             [vertex_c[0] - scale, vertex_c[1] - scale, vertex_c[2] - scale],
             [vertex_d[0] + scale, vertex_d[1] - scale, vertex_d[2] - scale],
-            color_a, color_b, color_c, color_d,
+            [color_a[0] * color_scale, color_a[1] * color_scale, color_a[2] * color_scale, color_a[3]],
+            [color_b[0] * color_scale, color_b[1] * color_scale, color_b[2] * color_scale, color_b[3]],
+            [color_c[0] * color_scale, color_c[1] * color_scale, color_c[2] * color_scale, color_c[3]],
+            [color_d[0] * color_scale, color_d[1] * color_scale, color_d[2] * color_scale, color_d[3]],
             recursion_depth - 1
         );
     }
