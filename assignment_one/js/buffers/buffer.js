@@ -8,10 +8,8 @@ Buffer.prototype.buffer_data = function (data) {
     this.unbind();
 };
 Buffer.prototype.bind = function () {
-    // Bind an empty array buffer to it
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.gl_buffer);
 };
 Buffer.prototype.unbind = function () {
-    // Unbind the buffer
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
 };

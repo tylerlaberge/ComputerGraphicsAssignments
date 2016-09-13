@@ -13,9 +13,6 @@ Shape.prototype.buffer = function () {
     this.vertex_buffer.buffer_data(this.vertices);
     this.color_buffer.buffer_data(this.colors);
 };
-Shape.prototype.setViewport = function (x, y, width, height) {
-    this.gl.viewport(x, y, width, height);
-};
 Shape.prototype.prepare_to_draw = function () {
     this.vertex_buffer.bind();
     this.gl.vertexAttribPointer(this.shader_program.vertex_position_attribute, this.vertex_size, this.gl.FLOAT, false, 0, 0);
