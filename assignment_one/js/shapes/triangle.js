@@ -9,11 +9,11 @@ function Triangle(
         gl,
         shader_program,
         [
-            vertex_a[0], vertex_a[1], vertex_a[2],
-            vertex_b[0], vertex_b[1], vertex_b[2],
-            vertex_c[0], vertex_c[1], vertex_c[2]
+            vertex_a[0], vertex_a[1],
+            vertex_b[0], vertex_b[1],
+            vertex_c[0], vertex_c[1]
         ],
-        3,
+        2,
         [
             color_a[0], color_a[1], color_a[2], color_a[3],
             color_b[0], color_b[1], color_b[2], color_b[3],
