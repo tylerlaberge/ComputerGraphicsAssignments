@@ -7,6 +7,7 @@ function Shape(gl, shader_program, vertices, vertex_size, colors, color_size){
     this.vertex_size = vertex_size;
     this.colors = colors;
     this.color_size = color_size;
+    this.num_points = this.vertices.length/this.vertex_size;
 }
 Shape.prototype.buffer = function () {
     this.vertex_buffer.buffer_data(this.vertices);
@@ -23,7 +24,7 @@ Shape.prototype.prepare_to_draw = function () {
 };
 Shape.prototype.draw = function () {
     this.prepare_to_draw();
-    this.gl.drawArrays(this.gl.POINTS, 0, this.vertex_size);
+    this.gl.drawArrays(this.gl.POINTS, 0, this.num_points);
     this.finish_drawing();
 };
 Shape.prototype.finish_drawing = function () {
