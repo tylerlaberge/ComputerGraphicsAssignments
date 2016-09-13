@@ -1,4 +1,4 @@
-function Artist(gl, shader_program){
+function Artist(gl, shader_program) {
     this.gl = gl;
     this.shader_program = shader_program;
 }

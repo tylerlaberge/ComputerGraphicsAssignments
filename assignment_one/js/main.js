@@ -1,4 +1,4 @@
-window.onload = function(){
+window.onload = function () {
     var canvas = document.getElementById('my_canvas');
     var gl = WebGLUtility.initWebGL(canvas);
     WebGLUtility.setClearColor(gl, 0, 0, 0, 1);

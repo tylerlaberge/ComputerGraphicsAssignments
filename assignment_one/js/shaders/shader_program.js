@@ -1,4 +1,4 @@
-function ShaderProgram(gl, vertex_shader, fragment_shader){
+function ShaderProgram(gl, vertex_shader, fragment_shader) {
     this.gl = gl;
     this.vertex_shader = vertex_shader;
     this.fragment_shader = fragment_shader;

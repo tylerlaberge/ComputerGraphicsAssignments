@@ -1,8 +1,6 @@
-function Triangle(
-    gl, shader_program,
-    vertex_a, vertex_b, vertex_c,
-    color_a, color_b, color_c
-){
+function Triangle(gl, shader_program,
+                  vertex_a, vertex_b, vertex_c,
+                  color_a, color_b, color_c) {
     this.vertex_size = 2;
     this.color_size = 4;
     Shape.call(

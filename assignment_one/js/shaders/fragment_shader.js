@@ -1,4 +1,4 @@
-function FragmentShader(gl){
+function FragmentShader(gl) {
     Shader.call(this, gl);
     this.source_code =
         "precision mediump float;" +

@@ -1,4 +1,4 @@
-function VertexShader(gl){
+function VertexShader(gl) {
     Shader.call(this, gl);
     this.source_code =
         "attribute vec4 vPosition;" +

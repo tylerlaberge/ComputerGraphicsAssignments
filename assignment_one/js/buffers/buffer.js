@@ -1,4 +1,4 @@
-function Buffer(gl){
+function Buffer(gl) {
     this.gl = gl;
     this.gl_buffer = this.gl.createBuffer();
 }

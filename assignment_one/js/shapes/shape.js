@@ -1,4 +1,4 @@
-function Shape(gl, shader_program, vertices, vertex_size, colors, color_size){
+function Shape(gl, shader_program, vertices, vertex_size, colors, color_size) {
     this.gl = gl;
     this.vertex_buffer = new Buffer(this.gl);
     this.color_buffer = new Buffer(this.gl);
@@ -7,7 +7,7 @@ function Shape(gl, shader_program, vertices, vertex_size, colors, color_size){
     this.vertex_size = vertex_size;
     this.colors = colors;
     this.color_size = color_size;
-    this.num_points = this.vertices.length/this.vertex_size;
+    this.num_points = this.vertices.length / this.vertex_size;
 }
 Shape.prototype.buffer = function () {
     this.vertex_buffer.buffer_data(this.vertices);
