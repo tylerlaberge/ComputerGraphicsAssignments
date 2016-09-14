@@ -7,10 +7,20 @@ window.onload = function () {
 
     var artist = new Artist(gl, shader_program);
     artist.set_viewport(0, 0, canvas.width, canvas.height);
-    artist.draw_triangle(
+
+
+    var triangle = artist.sketch_triangle(
         [-0.75, -0.75], [-0.25, -.75], [-.5, -.25],
         [0.0, 1.0, 0.0, 1.0], [0.0, 0.0, 1.0, 1.0], [1.0, 0.0, 0.0, 1.0]
     );
+    var triangle_animation = artist.sketch_animation(triangle, 0.001, 0.0);
+
+    var circle = artist.sketch_circle([0.5, 0.5], [1.0, 0.0, 0.0, 1.0], .25);
+    var circle_animation = artist.sketch_animation(circle, 0.0, -0.001);
+
+    artist.draw([triangle_animation, circle_animation]);
+
+
  /*   artist.draw_squares(
         [-0.25, -0.25, 0.0], [0.25, -0.25, 0.0], [0.25, 0.25, 0.0], [-0.25, 0.25, 0.0],
         [0.0, 1.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0],

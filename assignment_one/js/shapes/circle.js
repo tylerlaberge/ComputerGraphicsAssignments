@@ -43,10 +43,6 @@ Circle.prototype.compute_vertices = function (center_vertex, radius) {
     }
     return vertices;
 };
-
 Circle.prototype.draw = function () {
-    this.prepare_to_draw();
-    this.animate(0, 0);
     this.gl.drawArrays(this.gl.TRIANGLE_FAN, 0, this.num_points);
-    this.finish_drawing();
 };

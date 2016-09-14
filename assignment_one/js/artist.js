@@ -5,6 +5,9 @@ function Artist(gl, shader_program) {
 Artist.prototype.set_viewport = function (x, y, width, height) {
     this.gl.viewport(x, y, width, height);
 };
+Artist.prototype.clear_canvas = function () {
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+};
 Artist.prototype.draw_circle = function (center_vertex, color, radius) {
     var circle = new Circle(
         this.gl, this.shader_program,
@@ -13,26 +16,43 @@ Artist.prototype.draw_circle = function (center_vertex, color, radius) {
     circle.buffer();
     circle.draw();
 };
-Artist.prototype.draw_triangle = function (vertex_a, vertex_b, vertex_c, color_a, color_b, color_c) {
+Artist.prototype.sketch_circle = function (center_vertex, color, radius) {
+    var circle = new Circle(
+        this.gl, this.shader_program,
+        center_vertex, color, radius
+    );
+    circle.buffer();
+    return circle;
+};
+Artist.prototype.sketch_triangle = function (vertex_a, vertex_b, vertex_c, color_a, color_b, color_c) {
     var triangle = new Triangle(
         this.gl, this.shader_program,
         vertex_a, vertex_b, vertex_c,
         color_a, color_b, color_c
     );
     triangle.buffer();
-    triangle.prepare_to_draw();
+    return triangle;
+};
+Artist.prototype.sketch_animation = function (shape, x_inc, y_inc) {
     var offset_x = 0;
     var offset_y = 0;
-    var gl = this.gl;
-    var render = function () {
-        requestAnimationFrame(render);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        triangle.animate(offset_x, offset_y);
-        offset_x += 0.001;
-        offset_y += 0.001;
-        triangle.draw();
+    var animation_func = function () {
+        requestAnimationFrame(animation_func);
+        shape.animate(offset_x, offset_y);
+        offset_x += x_inc;
+        offset_y += y_inc;
     };
-    render();
+    return animation_func;
+};
+Artist.prototype.draw = function(animations){
+    for (var i = 0; i < animations.length; i++){
+        var animation = animations[i];
+        animation();
+    }
+    var gl = this.gl;
+    setInterval(function () {
+        WebGLUtility.clearScreen(gl);
+    },1);
 };
 Artist.prototype.draw_square = function (vertex_a, vertex_b, vertex_c, vertex_d, color_a, color_b, color_c, color_d) {
     var square = new Square(
