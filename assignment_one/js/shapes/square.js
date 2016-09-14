@@ -24,14 +24,11 @@ function Square(gl,
     );
 }
 Square.prototype = Object.create(Shape.prototype);
-Square.prototype.draw = function (hollow) {
-    this.prepare_to_draw();
-    this.animate(0, 0);
-    if (hollow) {
-        this.gl.drawArrays(this.gl.LINE_LOOP, 0, this.num_points);
-    }
-    else {
+Square.prototype.draw = function (fill) {
+    if (fill) {
         this.gl.drawArrays(this.gl.TRIANGLE_FAN, 0, this.num_points);
     }
-    this.finish_drawing();
+    else {
+        this.gl.drawArrays(this.gl.LINE_LOOP, 0, this.num_points);
+    }
 };
