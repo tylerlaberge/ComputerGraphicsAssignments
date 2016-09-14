@@ -19,8 +19,13 @@ Shape.prototype.prepare_to_draw = function () {
     this.color_buffer.bind();
     this.gl.vertexAttribPointer(this.shader_program.vertex_color_attribute, this.color_size, this.gl.FLOAT, false, 0, 0);
 };
+Shape.prototype.animate = function (offset_x, offset_y) {
+    this.gl.uniform1f(this.shader_program.offset_x_uniform, offset_x);
+    this.gl.uniform1f(this.shader_program.offset_y_uniform, offset_y);
+};
 Shape.prototype.draw = function () {
     this.prepare_to_draw();
+    this.animate(0, 0);
     this.gl.drawArrays(this.gl.POINTS, 0, this.num_points);
     this.finish_drawing();
 };

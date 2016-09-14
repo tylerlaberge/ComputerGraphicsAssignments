@@ -20,7 +20,19 @@ Artist.prototype.draw_triangle = function (vertex_a, vertex_b, vertex_c, color_a
         color_a, color_b, color_c
     );
     triangle.buffer();
-    triangle.draw();
+    triangle.prepare_to_draw();
+    var offset_x = 0;
+    var offset_y = 0;
+    var gl = this.gl;
+    var render = function () {
+        requestAnimationFrame(render);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        triangle.animate(offset_x, offset_y);
+        offset_x += 0.001;
+        offset_y += 0.001;
+        triangle.draw();
+    };
+    render();
 };
 Artist.prototype.draw_square = function (vertex_a, vertex_b, vertex_c, vertex_d, color_a, color_b, color_c, color_d) {
     var square = new Square(

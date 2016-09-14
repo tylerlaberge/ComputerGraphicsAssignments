@@ -26,6 +26,7 @@ function Square(gl,
 Square.prototype = Object.create(Shape.prototype);
 Square.prototype.draw = function (hollow) {
     this.prepare_to_draw();
+    this.animate(0, 0);
     if (hollow) {
         this.gl.drawArrays(this.gl.LINE_LOOP, 0, this.num_points);
     }

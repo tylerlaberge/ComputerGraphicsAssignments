@@ -22,7 +22,5 @@ function Triangle(gl, shader_program,
 }
 Triangle.prototype = Object.create(Shape.prototype);
 Triangle.prototype.draw = function () {
-    this.prepare_to_draw();
     this.gl.drawArrays(this.gl.TRIANGLES, 0, this.num_points);
-    this.finish_drawing();
 };

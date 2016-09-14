@@ -5,6 +5,8 @@ function ShaderProgram(gl, vertex_shader, fragment_shader) {
     this.gl_shader_program = this.gl.createProgram();
     this.vertex_position_attribute = null;
     this.vertex_color_attribute = null;
+    this.offset_x_uniform = null;
+    this.offset_y_uniform = null;
     this.init();
 }
 ShaderProgram.prototype.init = function () {
@@ -26,4 +28,7 @@ ShaderProgram.prototype.init = function () {
 
     this.gl.enableVertexAttribArray(this.vertex_position_attribute);
     this.gl.enableVertexAttribArray(this.vertex_color_attribute);
+
+    this.offset_x_uniform = this.gl.getUniformLocation(this.gl_shader_program, 'offset_x');
+    this.offset_y_uniform = this.gl.getUniformLocation(this.gl_shader_program, 'offset_y');
 };
