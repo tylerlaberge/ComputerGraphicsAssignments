@@ -11,9 +11,3 @@ WebGLUtility.initWebGL = function (canvas) {
     }
     return gl;
 };
-WebGLUtility.setClearColor = function (gl, r, g, b, a) {
-    gl.clearColor(r, g, b, a);
-};
-WebGLUtility.clearScreen = function (gl) {
-    gl.clear(gl.COLOR_BUFFER_BIT);
-};

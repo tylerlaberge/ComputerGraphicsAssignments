@@ -31,11 +31,22 @@ Shape.prototype.prepare_animation = function (x_inc, y_inc) {
     var offset_x = 0;
     var offset_y = 0;
     var instance = this;
+    var ticks = 0;
     var animation_func = function() {
         requestAnimationFrame(animation_func);
         instance.offset(offset_x, offset_y);
-        offset_x += x_inc;
-        offset_y += y_inc;
+        if (ticks < 500){
+            offset_x += x_inc;
+            offset_y += y_inc;
+        }
+        else {
+            if (ticks > 1000){
+                ticks = 0;
+            }
+            offset_x -= x_inc;
+            offset_y -= y_inc;
+        }
+        ticks++;
     };
     this.animation = animation_func;
 };
@@ -44,9 +55,8 @@ Shape.prototype.render = function () {
         this.animation();
     }
     else{
-        this.prepare_to_draw();
-        this.draw();
-        this.finish_drawing();
+        this.prepare_animation(0, 0);
+        this.animation();
     }
 };
 Shape.prototype.draw = function () {

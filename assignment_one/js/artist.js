@@ -2,8 +2,16 @@ function Artist(gl, shader_program) {
     this.gl = gl;
     this.shader_program = shader_program;
 }
-Artist.prototype.set_viewport = function (x, y, width, height) {
-    this.gl.viewport(x, y, width, height);
+Artist.prototype.draw = function(shapes){
+    for (var i = 0; i < shapes.length; i++){
+        var shape = shapes[i];
+        shape.render();
+    }
+    (function(instance){
+        setInterval(function () {
+            instance.clear_canvas();
+        },1);
+    })(this);
 };
 Artist.prototype.sketch_circle = function (center_vertex, color, radius) {
     var circle = new Circle(
@@ -22,17 +30,6 @@ Artist.prototype.sketch_triangle = function (vertex_a, vertex_b, vertex_c, color
     triangle.buffer();
     return triangle;
 };
-Artist.prototype.draw = function(shapes){
-    for (var i = 0; i < shapes.length; i++){
-        var shape = shapes[i];
-        shape.render();
-    }
-    (function(instance){
-        setInterval(function () {
-            WebGLUtility.clearScreen(instance.gl);
-        },1);
-    })(this);
-};
 Artist.prototype.sketch_square = function (vertex_a, vertex_b, vertex_c, vertex_d, color_a, color_b, color_c, color_d) {
     var square = new Square(
         this.gl, this.shader_program,
@@ -50,7 +47,7 @@ Artist.prototype.sketch_squares = function (vertex_a, vertex_b, vertex_c, vertex
                      color_a, color_b, color_c, color_d, recursion_depth) {
         if (recursion_depth > 1) {
             var scale = .025;
-            var color_scale = .85;
+            var color_scale = .80;
             recurse
             (
                 instance,
@@ -78,4 +75,13 @@ Artist.prototype.sketch_squares = function (vertex_a, vertex_b, vertex_c, vertex
         color_a, color_b, color_c, color_d, recursion_depth);
 
     return sketched_squares;
+};
+Artist.prototype.set_canvas_color = function(r, g, b, a){
+    this.gl.clearColor(r, g, b, a);
+};
+Artist.prototype.clear_canvas = function () {
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+};
+Artist.prototype.set_drawing_zone = function (x, y, width, height) {
+    this.gl.viewport(x, y, width, height);
 };
