@@ -8,6 +8,7 @@ function Shape(gl, shader_program, vertices, vertex_size, colors, color_size) {
     this.colors = colors;
     this.color_size = color_size;
     this.num_points = this.vertices.length / this.vertex_size;
+    this.animation = null;
 }
 Shape.prototype.buffer = function () {
     this.vertex_buffer.buffer_data(this.vertices);
@@ -19,18 +20,37 @@ Shape.prototype.prepare_to_draw = function () {
     this.color_buffer.bind();
     this.gl.vertexAttribPointer(this.shader_program.vertex_color_attribute, this.color_size, this.gl.FLOAT, false, 0, 0);
 };
-Shape.prototype.animate = function (offset_x, offset_y) {
+Shape.prototype.offset = function (offset_x, offset_y) {
     this.prepare_to_draw();
     this.gl.uniform1f(this.shader_program.offset_x_uniform, offset_x);
     this.gl.uniform1f(this.shader_program.offset_y_uniform, offset_y);
     this.draw();
     this.finish_drawing();
 };
+Shape.prototype.prepare_animation = function (x_inc, y_inc) {
+    var offset_x = 0;
+    var offset_y = 0;
+    var instance = this;
+    var animation_func = function() {
+        requestAnimationFrame(animation_func);
+        instance.offset(offset_x, offset_y);
+        offset_x += x_inc;
+        offset_y += y_inc;
+    };
+    this.animation = animation_func;
+};
+Shape.prototype.render = function () {
+    if(this.animation){
+        this.animation();
+    }
+    else{
+        this.prepare_to_draw();
+        this.draw();
+        this.finish_drawing();
+    }
+};
 Shape.prototype.draw = function () {
-    this.prepare_to_draw();
-    this.animate(0, 0);
     this.gl.drawArrays(this.gl.POINTS, 0, this.num_points);
-    this.finish_drawing();
 };
 Shape.prototype.finish_drawing = function () {
     this.vertex_buffer.unbind();

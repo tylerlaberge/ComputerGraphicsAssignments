@@ -5,17 +5,6 @@ function Artist(gl, shader_program) {
 Artist.prototype.set_viewport = function (x, y, width, height) {
     this.gl.viewport(x, y, width, height);
 };
-Artist.prototype.clear_canvas = function () {
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-};
-Artist.prototype.draw_circle = function (center_vertex, color, radius) {
-    var circle = new Circle(
-        this.gl, this.shader_program,
-        center_vertex, color, radius
-    );
-    circle.buffer();
-    circle.draw();
-};
 Artist.prototype.sketch_circle = function (center_vertex, color, radius) {
     var circle = new Circle(
         this.gl, this.shader_program,
@@ -33,26 +22,16 @@ Artist.prototype.sketch_triangle = function (vertex_a, vertex_b, vertex_c, color
     triangle.buffer();
     return triangle;
 };
-Artist.prototype.sketch_animation = function (shape, x_inc, y_inc) {
-    var offset_x = 0;
-    var offset_y = 0;
-    var animation_func = function () {
-        requestAnimationFrame(animation_func);
-        shape.animate(offset_x, offset_y);
-        offset_x += x_inc;
-        offset_y += y_inc;
-    };
-    return animation_func;
-};
-Artist.prototype.draw = function(animations){
-    for (var i = 0; i < animations.length; i++){
-        var animation = animations[i];
-        animation();
+Artist.prototype.draw = function(shapes){
+    for (var i = 0; i < shapes.length; i++){
+        var shape = shapes[i];
+        shape.render();
     }
-    var gl = this.gl;
-    setInterval(function () {
-        WebGLUtility.clearScreen(gl);
-    },1);
+    (function(instance){
+        setInterval(function () {
+            WebGLUtility.clearScreen(instance.gl);
+        },1);
+    })(this);
 };
 Artist.prototype.sketch_square = function (vertex_a, vertex_b, vertex_c, vertex_d, color_a, color_b, color_c, color_d) {
     var square = new Square(
