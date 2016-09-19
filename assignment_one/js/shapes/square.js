@@ -2,6 +2,20 @@ function Square(gl,
                 shader_program,
                 vertex_a, vertex_b, vertex_c, vertex_d,
                 color_a, color_b, color_c, color_d) {
+    /*
+     * A class which represents a Square to be drawn with webgl.
+     *
+     * @param gl: The webgl object to draw this shape with.
+     * @param shader_program: The shader program being used with the webgl object.
+     * @param vertex_a: One of four vertices that make up this Square.
+     * @param vertex_b: One of four vertices that make up this Square.
+     * @param vertex_c: One of four vertices that make up this Square.
+     * @param vertex_d: One of four vertices that make up this Square.
+     * @param color_a: The color to apply to vertex_a.
+     * @param color_b: The color to apply to vertex_b.
+     * @param color_c: The color to apply to vertex_c.
+     * @param color_d: The color to apply to vertex_d.
+     */
     this.vertex_size = 3;
     this.color_size = 4;
     Shape.call(
@@ -23,8 +37,13 @@ function Square(gl,
         this.color_size
     );
 }
-Square.prototype = Object.create(Shape.prototype);
+Square.prototype = Object.create(Shape.prototype); /* This object is a Shape */
 Square.prototype.draw = function (fill) {
+    /*
+     * Override the draw method to use webgls TRIANGLE_FAN or LINE_LOOP depending on the fill param.
+     *
+     * @param fill: boolean for if this square should be solid. Defaults to hollow.
+     */
     if (fill) {
         this.gl.drawArrays(this.gl.TRIANGLE_FAN, 0, this.num_points);
     }
