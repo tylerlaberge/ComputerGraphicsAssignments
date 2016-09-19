@@ -3,7 +3,7 @@ function Artist(gl, shader_program) {
      * A class which is responsible for drawing shapes to the screen using webgl.
      *
      * @param gl: The webgl object to use to draw with.
-     * @param shader_program; The ShaderProgram associated with the webgl object.
+     * @param shader_program: The ShaderProgram associated with the webgl object.
      */
     this.gl = gl;
     this.shader_program = shader_program;
