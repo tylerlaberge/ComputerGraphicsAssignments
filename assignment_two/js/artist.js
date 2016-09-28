@@ -18,11 +18,6 @@ Artist.prototype.draw = function(shapes){
         var shape = shapes[i];
         shape.render();
     }
-    (function(instance){ /* Slightly hacky thing to keep the background from disappearing during animations */
-        setInterval(function () {
-            instance.clear_canvas();
-        },1);
-    })(this);
 };
 Artist.prototype.sketch_circle = function (center_vertex, color, radius) {
     /*
