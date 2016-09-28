@@ -1,0 +1,99 @@
+
+1. For each of the following triplets of points, find the normal vector to the plane (if it exists)
+that passes through the triplets :
+
+      a. P1 = (1,1,1), P2 = (1,2,1), P3 = (3,0,4)
+
+      --->
+      P1P2 = u = (1 - 1)i + (2 - 1)j + (1 - 1)k = j
+
+      --->
+      P1P3 = v = (3 - 1)i + (0 - 1)j + (4 - 1)k = 2i - j + 3k
+
+      normal vector = u x v
+
+               | i  j  k |
+      u x v =  | 0  1  0 | = (3 - 0)i + (0 - 0)j + (0 - 2)k = 3i - 2k
+               | 2 -1  3 |
+
+      normal vector = <3, 0, -2>
+
+
+      b. P1 = (8,9,7), P2 = (-8,-9,-7), P3 = (1,2,1)
+
+      --->
+      P1P2 = u = (-8 - 8)i + (-9 - 9)j + (-7 - 7)k = -16i - 18j - 14k
+
+      --->
+      P1P3 = v = (1 - 8)i + (2 - 9)j + (1 - 7)k = -7i - 7j - 6k
+
+      normal vector = u x v
+
+               |  i   j   k  |
+      u x v =  | -16 -18 -14 | = (108 - 98)i + (96 - 98)j + (112 - 126)k = 10i - 2j - 14k
+               | -7  -7  -6  |
+
+      normal vector = <10, -2, -14>
+
+
+      c. P1 = (6,3,-4), P2 = (0,0,0), P3 = (2,1,-1)
+
+      --->
+      P1P2 = u = (0 - 6)i + (0 - 3)j + (0 + 4)k = -6i - 3j + 4k
+
+      --->
+      P1P3 = v = (2 - 6)i + (1 - 3)j + (-1 + 4)k = -4i - 2j + 3k
+
+      normal vector = u x v
+
+               | i  j  k |
+      u x v =  |-6 -3  4 | = (-9 + 8)i + (-18 + 16)j + (12 - 12)k = -i - 2j
+               |-4 -2  3 |
+
+      normal vector = <-1, -2, 0>
+
+      d. Switch the sequence of the points in part c to be P3, P2,P1
+
+      P1 = (6,3,-4), P2 = (0,0,0), P3 = (2,1,-1)
+
+      --->
+      P3P2 = u = (0 - 2)i + (0 - 1)j + (0 + 1)k = -2i - 1j + k
+
+      --->
+      P3P1 = v = (6 - 2)i + (3 - 1)j + (-4 + 1)k = 4i + 2j - 3k
+
+      normal vector = u x v
+
+               | i  j  k |
+      u x v =  |-2 -1  1 | = (3 - 2)i + (6 - 4)j + (-4 + 4)k = i + 2j
+               | 4  2 -3 |
+
+      normal vector = <1, 2, 0>
+
+
+      e. Provide the normal form for the plane defined by the points in Part c.
+
+      P1 = (6,3,-4), P2 = (0,0,0), P3 = (2,1,-1)
+
+      normal vector = <-1, -2, 0> = -i - 2j
+
+      component equation = A(X - Xo) + B(Y - Yo) + C(Z - Zo) = 0
+
+      Let Po = P@ = (0, 0, 0), then
+
+      -(X - 0) - 2(Y - 0) = 0
+
+      -x - 2y = 0
+
+      Normal form of the plane: -x - 2y = 0
+
+
+      f. Provide the parametric form for the plane defined by the points in Part c.
+
+      P1 = (6,3,-4), P2 = (0,0,0), P3 = (2,1,-1)
+
+      Parametric vector form: x = a + Qv1 + Wv2
+
+          ( 0 )    ( 2 )    ( 6 )
+      x = ( 0 ) + Q( 1 ) + W( 3 )
+          ( 0 )    ( 1 )    (-4 )
