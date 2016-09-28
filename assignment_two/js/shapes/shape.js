@@ -19,6 +19,7 @@ function Shape(gl, shader_program, vertices, vertex_size, colors, color_size) {
     this.color_size = color_size;
     this.num_points = this.vertices.length / this.vertex_size;
     this.animation = null;
+    this.transforms = mat4();
 }
 Shape.prototype.buffer = function () {
     /*
@@ -35,48 +36,7 @@ Shape.prototype.prepare_to_draw = function () {
     this.gl.vertexAttribPointer(this.shader_program.vertex_position_attribute, this.vertex_size, this.gl.FLOAT, false, 0, 0);
     this.color_buffer.bind();
     this.gl.vertexAttribPointer(this.shader_program.vertex_color_attribute, this.color_size, this.gl.FLOAT, false, 0, 0);
-};
-Shape.prototype.offset = function (offset_x, offset_y) {
-    /*
-     * Offset where this shape is to be drawn.
-     *
-     * @param offset_x: The amount in the x direction to offset the shape by.
-     * @param offset_y: The amount in the y direction to offset the shape by.
-     */
-    this.prepare_to_draw();
-    this.gl.uniform1f(this.shader_program.offset_x_uniform, offset_x);
-    this.gl.uniform1f(this.shader_program.offset_y_uniform, offset_y);
-    this.draw();
-    this.finish_drawing();
-};
-Shape.prototype.prepare_animation = function (x_inc, y_inc) {
-    /*
-     * Prepare an animation for this shape.
-     *
-     * @param x_inc: The amount in the x direction this shape should move each frame.
-     * @param y_inc: The amount in the y direction this shape should move each frame.
-     */
-    var offset_x = 0;
-    var offset_y = 0;
-    var instance = this;
-    var ticks = 0;
-    var animation_func = function() {
-        requestAnimationFrame(animation_func);
-        instance.offset(offset_x, offset_y);
-        if (ticks < 500){
-            offset_x += x_inc;
-            offset_y += y_inc;
-        }
-        else {
-            if (ticks > 1000){
-                ticks = 0;
-            }
-            offset_x -= x_inc;
-            offset_y -= y_inc;
-        }
-        ticks++;
-    };
-    this.animation = animation_func;
+    this.gl.uniformMatrix4fv(this.shader_program.matrix_location, false, flatten(this.transforms));
 };
 Shape.prototype.render = function () {
     /*
@@ -98,4 +58,13 @@ Shape.prototype.finish_drawing = function () {
      */
     this.vertex_buffer.unbind();
     this.color_buffer.unbind();
+};
+Shape.prototype.rotate_x = function (theta) {
+    this.transforms = mult(this.transforms, rotateX(theta));
+};
+Shape.prototype.rotate_y = function (theta) {
+    this.transforms = mult(this.transforms, rotateY(theta));
+};
+Shape.prototype.translate = function (x, y, z) {
+    this.transforms = mult(this.transforms, translate(x, y, z));
 };

@@ -12,6 +12,7 @@ function ShaderProgram(gl, vertex_shader, fragment_shader) {
     this.gl_shader_program = this.gl.createProgram();
     this.vertex_position_attribute = null;
     this.vertex_color_attribute = null;
+    this.matrix_location = null;
     this.init();
 }
 ShaderProgram.prototype.init = function () {
@@ -31,7 +32,7 @@ ShaderProgram.prototype.init = function () {
 
     this.vertex_position_attribute = this.gl.getAttribLocation(this.gl_shader_program, "vPosition");
     this.vertex_color_attribute = this.gl.getAttribLocation(this.gl_shader_program, "aVertexColor");
-
+    this.matrix_location = this.gl.getUniformLocation(this.gl_shader_program, "uMatrix");
 
     this.gl.enableVertexAttribArray(this.vertex_position_attribute);
     this.gl.enableVertexAttribArray(this.vertex_color_attribute);

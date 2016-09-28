@@ -9,11 +9,9 @@ function VertexShader(gl) {
         "attribute vec4 vPosition;" +
         "attribute vec4 aVertexColor;" +
         "varying vec4 vColor;" +
+        "uniform mat4 uMatrix;" +
         "void main() {" +
-        "gl_Position.x = vPosition.x;" +
-        "gl_Position.y = vPosition.y;" +
-        "gl_Position.z = vPosition.z;" +
-        "gl_Position.w = 1.0;" +
+        "gl_Position = uMatrix*vPosition;" +
         "vColor = aVertexColor;" +
         "}";
     this.gl_shader = this.gl.createShader(gl.VERTEX_SHADER);

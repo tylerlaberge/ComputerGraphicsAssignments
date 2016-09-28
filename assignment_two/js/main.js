@@ -12,8 +12,36 @@ window.onload = function () {
     artist.clear_canvas();
     artist.set_drawing_zone(0, 0, canvas.width, canvas.height);
 
-    var cube = artist.sketch_cube([0.0, 0.0, 0.0], .5);
-
+    var cube = artist.sketch_cube([0.0, 0.0, 0.0], 0.25);
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     artist.draw([cube]);
+
+    document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 33:
+            cube.translate(0.0, 0.0, -.25);
+            artist.draw([cube]);
+            break;
+        case 34:
+            cube.translate(0.0, 0.0, 0.25);
+            artist.draw([cube]);
+            break;
+        case 37:
+            cube.rotate_y(-2.0);
+            artist.draw([cube]);
+            break;
+        case 38:
+            cube.rotate_x(-2.0);
+            artist.draw([cube]);
+            break;
+        case 39:
+            cube.rotate_y(2.0);
+            artist.draw([cube]);
+            break;
+        case 40:
+            cube.rotate_x(2.0);
+            artist.draw([cube]);
+            break;
+    }
+};
 };
