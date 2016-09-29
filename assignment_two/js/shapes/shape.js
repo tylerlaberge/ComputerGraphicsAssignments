@@ -59,12 +59,28 @@ Shape.prototype.finish_drawing = function () {
     this.vertex_buffer.unbind();
     this.color_buffer.unbind();
 };
-Shape.prototype.rotate_x = function (theta) {
-    this.transforms = mult(this.transforms, rotateX(theta));
-};
-Shape.prototype.rotate_y = function (theta) {
-    this.transforms = mult(this.transforms, rotateY(theta));
+Shape.prototype.rotate = function (axis, theta) {
+    var rotate_func = null;
+    if(axis === 'x'){
+        rotate_func = rotateX;
+    }
+    else if (axis === 'y'){
+        rotate_func = rotateY;
+    }
+    else if (axis === 'z'){
+        rotate_func = rotateZ;
+    }
+
+    if(rotate_func != null){
+        this.transforms = mult(this.transforms, rotate_func(theta));
+    }
 };
 Shape.prototype.translate = function (x, y, z) {
     this.transforms = mult(this.transforms, translate(x, y, z));
+};
+Shape.prototype.scale = function (x, y, z) {
+    this.transforms = mult(this.transforms, scalem(x, y, z));
+};
+Shape.prototype.reset = function () {
+    this.transforms = mat4();
 };
