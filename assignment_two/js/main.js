@@ -17,50 +17,19 @@ window.onload = function () {
     cube.rotate('x', 10.0);
     artist.draw([cube]);
 
-    document.onkeydown = function(event) {
-        switch (event.keyCode) {
-            case 33:
-                cube.translate(0.0, 0.0, 0.01);
-                artist.draw([cube]);
-                break;
-            case 34:
-                cube.translate(0.0, 0.0, -0.01);
-                artist.draw([cube]);
-                break;
-            case 37:
-                cube.translate(-0.01, 0.0, 0.0);
-                artist.draw([cube]);
-                break;
-            case 38:
-                cube.translate(0.0, 0.01, 0.0);
-                artist.draw([cube]);
-                break;
-            case 39:
-                cube.translate(0.01, 0.0, 0.0);
-                artist.draw([cube]);
-                break;
-            case 40:
-                cube.translate(0.0, -0.01, 0.0);
-                artist.draw([cube]);
-                break;
-            case 66:
-                if(event.shiftKey){
-                    cube.reset();
-                    cube.rotate('x', 10.0);
-                    artist.draw([cube]);
-                }
-                break;
-            case 83:
-                if(event.shiftKey){
-                    cube.scale(1.1, 1.1, 1.1);
-                }
-                else{
-                    cube.scale(0.9, 0.9, 0.9);
-                }
-                artist.draw([cube]);
-                break;
-        }
-    };
+    var keydown_event_handler = new KeyDownEventHandler();
+
+    keydown_event_handler.attach_callback(33, false, function () {cube.translate(0.0, 0.0, 0.01);artist.draw([cube]);});
+    keydown_event_handler.attach_callback(34, false, function () {cube.translate(0.0, 0.0, -0.01);artist.draw([cube]);});
+    keydown_event_handler.attach_callback(37, false, function () {cube.translate(-0.01, 0.0, 0.0);artist.draw([cube]);});
+    keydown_event_handler.attach_callback(38, false, function () {cube.translate(0.0, 0.01, 0.0);artist.draw([cube]);});
+    keydown_event_handler.attach_callback(39, false, function () {cube.translate(0.01, 0.0, 0.0);artist.draw([cube]);});
+    keydown_event_handler.attach_callback(40, false, function () {cube.translate(0.0, -0.01, 0.0);artist.draw([cube]);});
+    keydown_event_handler.attach_callback(66, true, function () {cube.reset();cube.rotate('x', 10.0);artist.draw([cube]);});
+    keydown_event_handler.attach_callback(83, true, function () {cube.scale(1.1, 1.1, 1.1);artist.draw([cube]);});
+    keydown_event_handler.attach_callback(83, false, function () {cube.scale(0.9, 0.9, 0.9);artist.draw([cube]);});
+
+    keydown_event_handler.init();
 
     var mouseDown = false;
     var lastMouseX = null;
