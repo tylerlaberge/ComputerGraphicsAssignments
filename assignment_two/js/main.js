@@ -4,6 +4,7 @@ window.onload = function () {
 
     var gl = WebGLUtility.initWebGL(canvas);
 
+    gl.enable(gl.DEPTH_TEST);
     var shader_program = new ShaderProgram(gl, new VertexShader(gl), new FragmentShader(gl));
 
     var artist = new Artist(gl, shader_program);
