@@ -48,6 +48,15 @@ window.onload = function () {
                 cube.rotate('x', 10.0);
                 cube.render();
                 break;
+            case 82:
+                if(event.shiftKey){
+                    cube.rotate('y', 10.0);
+                }
+                else {
+                    cube.rotate('y', -10.0);
+                }
+                cube.render();
+                break;
             case 83:
                 if(event.shiftKey){
                     cube.scale(1.1, 1.1, 1.1);
