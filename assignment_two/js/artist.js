@@ -8,17 +8,6 @@ function Artist(gl, shader_program) {
     this.gl = gl;
     this.shader_program = shader_program;
 }
-Artist.prototype.draw = function(shapes){
-    /*
-     * Draw shapes to the screen.
-     *
-     * @param shapes: An array of Shape objects to draw to the screen.
-     */
-    for (var i = 0; i < shapes.length; i++){
-        var shape = shapes[i];
-        shape.render();
-    }
-};
 Artist.prototype.sketch_cube = function (center_vertex, radius) {
     var cube = new Cube(
         this.gl, this.shader_program,
