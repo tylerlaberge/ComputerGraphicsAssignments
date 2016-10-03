@@ -1,4 +1,7 @@
 function WebGLUtility() {
+    /*
+     * A Static class containing utility functions for Webgl.
+     */
 }
 WebGLUtility.initWebGL = function (canvas) {
     /*

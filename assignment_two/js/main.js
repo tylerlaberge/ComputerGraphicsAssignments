@@ -76,7 +76,7 @@ window.onload = function () {
         lastMouseX = event.clientX;
         lastMouseY = event.clientY;
     };
-    document.onmouseup = function (event) {
+    document.onmouseup = function () {
         mouseDown = false;
     };
     document.onmousemove = function (event) {

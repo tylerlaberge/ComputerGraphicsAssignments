@@ -1,4 +1,12 @@
 function Cube(gl, shader_program, center_vertex, radius) {
+    /*
+     * A class which represents a 3D Cube to be drawn with Webgl.
+     *
+     * @param gl: The webgl object to draw with.
+     * @param shader_program: The Shader Program object associated with the Webgl object.
+     * @param center_vertex: The center point of the cube.
+     * @param radius: The radius of the circumscribing sphere contained by the cube.
+     */
     Shape.call(
         this, gl, shader_program,
         this.calculate_vertices(center_vertex, radius),
@@ -15,9 +23,14 @@ function Cube(gl, shader_program, center_vertex, radius) {
     )
 
 }
-Cube.prototype = Object.create(Shape.prototype);
+Cube.prototype = Object.create(Shape.prototype); /* This object is a Shape */
 Cube.prototype.calculate_vertices = function (center_vertex, radius) {
-
+    /*
+     * Calculate all the vertices of the cube given a center vertex and radius.
+     *
+     * @param center_vertex: The center point of the cube.
+     * @param radius: The radius of the circumscribing sphere contained by the cube.
+     */
     var center_x = center_vertex[0];
     var center_y = center_vertex[1];
     var center_z = center_vertex[2];
@@ -48,6 +61,9 @@ Cube.prototype.calculate_vertices = function (center_vertex, radius) {
     );
 };
 Cube.prototype.generate_colors = function(color){
+    /*
+     * Generate 6 identical colors to be used for each vertex of a face of the cube.
+     */
     var colors = [];
     for(var i = 0; i < 6; i++){
         colors = colors.concat(color);
@@ -55,5 +71,8 @@ Cube.prototype.generate_colors = function(color){
     return colors;
 };
 Cube.prototype.draw = function () {
+    /*
+     * Draw this shape to the screen using weblgl TRIANGLES
+     */
     this.gl.drawArrays(this.gl.TRIANGLES, 0, this.num_points);
 };

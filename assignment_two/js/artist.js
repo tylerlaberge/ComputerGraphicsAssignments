@@ -1,14 +1,20 @@
 function Artist(gl, shader_program) {
     /*
-     * A class which is responsible for drawing shapes to the screen using webgl.
+     * A small wrapper around the webgl object for creating objects which can be rendered to the screen.
      *
-     * @param gl: The webgl object to use to draw with.
+     * @param gl: The webgl object to wrap in a nicer interface.
      * @param shader_program: The ShaderProgram associated with the webgl object.
      */
     this.gl = gl;
     this.shader_program = shader_program;
 }
 Artist.prototype.sketch_cube = function (center_vertex, radius) {
+    /*
+     * Create a Cube object which can be rendered to the screen.
+     *
+     * @param center_vertex: The center point of the cube.
+     * @param radius: The radius of the circumscribing sphere contained by the cube.
+     */
     var cube = new Cube(
         this.gl, this.shader_program,
         center_vertex, radius
@@ -17,6 +23,9 @@ Artist.prototype.sketch_cube = function (center_vertex, radius) {
     return cube;
 };
 Artist.prototype.enable_depth = function () {
+    /*
+     * Allow objects to be drawn in front of, and behind each other.
+     */
     this.gl.enable(this.gl.DEPTH_TEST);
 };
 Artist.prototype.set_canvas_color = function(r, g, b, a){
