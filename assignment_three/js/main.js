@@ -12,7 +12,7 @@ window.onload = function () {
     var ortho_camera = new THREE.OrthographicCamera(WIDTH / - 2, WIDTH / 2, HEIGHT / 2, HEIGHT / - 2, 1, 10000);
 
     var camera_switch_control = new CameraSwitchControl(perspective_camera, ortho_camera);
-    var camera_walk_control = new CameraWalkControl(camera_switch_control.camera);
+    var camera_walk_control = new CameraWalkControl(camera_switch_control.camera, room.floor.position.y + 100);
     camera_walk_control.front_boundary = room.front_wall.position.z + 100;
     camera_walk_control.back_boundary = room.back_wall.position.z - 100;
     camera_walk_control.left_boundary = room.left_wall.position.x + 100;
