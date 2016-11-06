@@ -1,4 +1,4 @@
-function WalkingCameraControl(camera){
+function CameraWalkControl(camera){
     this.camera = camera;
 
     this.move_forward_key = 87;
@@ -16,9 +16,9 @@ function WalkingCameraControl(camera){
     this.left_boundary = null;
     this.right_boundary = null;
 }
-WalkingCameraControl.prototype.register = function () {
+CameraWalkControl.prototype.register = function () {
     (function (instance) {
-        document.onkeydown = function (event) {
+        document.addEventListener('keydown', function (event) {
             switch (event.keyCode) {
                 case instance.move_forward_key:
                     if (instance.front_boundary){
@@ -73,57 +73,57 @@ WalkingCameraControl.prototype.register = function () {
                     instance.look_right();
                     break;
             }
-        };
+        });
     })(this);
 };
-WalkingCameraControl.prototype.move_left = function () {
+CameraWalkControl.prototype.move_left = function () {
     this.camera.position.x -= 5;
 };
-WalkingCameraControl.prototype.move_left = function () {
+CameraWalkControl.prototype.move_left = function () {
     this.camera.position.x -= 5;
 };
-WalkingCameraControl.prototype.move_right = function () {
+CameraWalkControl.prototype.move_right = function () {
     this.camera.position.x += 5;
 };
-WalkingCameraControl.prototype.move_forward = function () {
+CameraWalkControl.prototype.move_forward = function () {
     this.camera.position.z -= 5;
 };
-WalkingCameraControl.prototype.move_backward = function () {
+CameraWalkControl.prototype.move_backward = function () {
     this.camera.position.z += 5;
 };
-WalkingCameraControl.prototype.look_left = function () {
+CameraWalkControl.prototype.look_left = function () {
     this.setRotateY(this.getRotateY() + 1);
 };
-WalkingCameraControl.prototype.look_right = function () {
+CameraWalkControl.prototype.look_right = function () {
     this.setRotateY(this.getRotateY() - 1);
 };
-WalkingCameraControl.prototype.look_up = function () {
+CameraWalkControl.prototype.look_up = function () {
     this.setRotateX(this.getRotateX() + 1);
 };
-WalkingCameraControl.prototype.look_down = function () {
+CameraWalkControl.prototype.look_down = function () {
     this.setRotateX(this.getRotateX() - 1);
 };
-WalkingCameraControl.prototype.setRotateX = function( deg ){
+CameraWalkControl.prototype.setRotateX = function( deg ){
     if ( typeof( deg ) == 'number' && parseInt( deg ) == deg ){
         this.camera.rotation.x = deg * ( Math.PI / 180 );
     }
 };
-WalkingCameraControl.prototype.setRotateY = function( deg ){
+CameraWalkControl.prototype.setRotateY = function( deg ){
     if ( typeof( deg ) == 'number' && parseInt( deg ) == deg ){
         this.camera.rotation.y = deg * ( Math.PI / 180 );
     }
 };
-WalkingCameraControl.prototype.setRotateZ = function( deg ){
+CameraWalkControl.prototype.setRotateZ = function( deg ){
     if ( typeof( deg ) == 'number' && parseInt( deg ) == deg ){
         this.camera.rotation.z = deg * ( Math.PI / 180 );
     }
 };
-WalkingCameraControl.prototype.getRotateX = function(){
+CameraWalkControl.prototype.getRotateX = function(){
     return Math.round( this.camera.rotation.x * ( 180 / Math.PI ) );
 };
-WalkingCameraControl.prototype.getRotateY = function(){
+CameraWalkControl.prototype.getRotateY = function(){
     return Math.round( this.camera.rotation.y * ( 180 / Math.PI ) );
 };
-WalkingCameraControl.prototype.getRotateZ = function(){
+CameraWalkControl.prototype.getRotateZ = function(){
     return Math.round( this.camera.rotation.z * ( 180 / Math.PI ) );
 };
