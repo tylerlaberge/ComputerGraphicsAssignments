@@ -24,6 +24,7 @@ window.onload = function () {
     var cube = new THREE.Mesh(geometry, cube_material);
     scene.add(cube);
 
+    cube.position.x = -250;
     cube.position.y = -256 + 50;
 
     var plane_one_material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
@@ -101,8 +102,23 @@ window.onload = function () {
                 break;
         }
     };
+    var ticks = 0;
+    var offset_x = 0;
+    function move_cube(){
+        if (ticks < 500){
+            cube.position.x += 1;
+        }
+        else {
+            if (ticks > 1000){
+                ticks = 0;
+            }
+            cube.position.x -= 1;
+        }
+        ticks++;
+    }
     function render() {
         requestAnimationFrame(render);
+        move_cube();
         renderer.render(scene, camera);
     }
     render();
