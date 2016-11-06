@@ -1,7 +1,7 @@
-function Teapot(size, center) {
+function Teapot(size, center, texture) {
     this.size = size;
     this.geometry = new THREE.TeapotBufferGeometry(this.size, 15, true, true, true, false, false);
-    this.material = new THREE.MeshBasicMaterial( { color: 0xa1b9e0} );
+    this.material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.mesh.position.x = center[0];
     this.mesh.position.y = center[1];

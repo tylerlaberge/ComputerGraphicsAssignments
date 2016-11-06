@@ -1,11 +1,9 @@
-function Room(width, height, center){
+function Room(width, height, center, texture){
     this.width = width;
     this.height = height;
     this.center = center;
 
-    this.floor_material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-    this.wall_material = new THREE.MeshBasicMaterial( {color: 0x00ff00, side: THREE.DoubleSide} );
-    this.ceiling_material = new THREE.MeshBasicMaterial( {color: 0xcc7116, side: THREE.DoubleSide} );
+    this.material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
 
     this.floor = this.__build_floor();
     this.left_wall = this.__build_left_wall();
@@ -33,7 +31,7 @@ Room.prototype.__build_floor = function () {
         [90, 0, 0],
         this.width,
         this.width,
-        this.floor_material
+        this.material
     );
 };
 Room.prototype.__build_left_wall = function () {
@@ -42,7 +40,7 @@ Room.prototype.__build_left_wall = function () {
         [0, 90, 0],
         this.width,
         this.height,
-        this.wall_material
+        this.material
     );
 };
 Room.prototype.__build_right_wall = function () {
@@ -51,7 +49,7 @@ Room.prototype.__build_right_wall = function () {
         [0, 90, 0],
         this.width,
         this.height,
-        this.wall_material
+        this.material
     );
 };
 Room.prototype.__build_front_wall = function () {
@@ -60,7 +58,7 @@ Room.prototype.__build_front_wall = function () {
         [0, 0, 0],
         this.width,
         this.height,
-        this.wall_material
+        this.material
     );
 };
 Room.prototype.__build_back_wall = function () {
@@ -69,7 +67,7 @@ Room.prototype.__build_back_wall = function () {
         [0, 0, 0],
         this.width,
         this.height,
-        this.wall_material
+        this.material
     );
 };
 Room.prototype.__build_ceiling = function () {
@@ -78,7 +76,7 @@ Room.prototype.__build_ceiling = function () {
         [90, 0, 0],
         this.width,
         this.width,
-        this.ceiling_material
+        this.material
     );
 };
 Room.prototype.add_to_scene = function (scene) {
