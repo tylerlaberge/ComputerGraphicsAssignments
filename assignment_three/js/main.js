@@ -3,10 +3,13 @@ window.onload = function () {
     var HEIGHT = 512;
 
     var scene = new THREE.Scene();
-    var cube = new Cube(100, 100, 100, [-250, -206, 0]);
     var room = new Room(2000, 500, [0, 0, 0]);
+    var cube = new Cube(200, 200, 200, [-250, room.floor.position.y + 100, room.front_wall.position.z + 350]);
+    var teapot = new Teapot(100, [-250, room.floor.position.y + 50, 0]);
+
     cube.add_to_scene(scene);
     room.add_to_scene(scene);
+    teapot.add_to_scene(scene);
 
     var perspective_camera = new THREE.PerspectiveCamera(75, WIDTH/HEIGHT, 1,10000);
     var ortho_camera = new THREE.OrthographicCamera(WIDTH / - 2, WIDTH / 2, HEIGHT / 2, HEIGHT / - 2, 1, 10000);
