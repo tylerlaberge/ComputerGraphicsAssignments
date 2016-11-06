@@ -22,69 +22,35 @@ window.onload = function () {
 
     var cube_material = new THREE.MeshBasicMaterial( { color: 0xffffff, vertexColors: THREE.FaceColors } );
     var cube = new THREE.Mesh(geometry, cube_material);
-    scene.add(cube);
-
     cube.position.x = -250;
     cube.position.y = -256 + 50;
+    scene.add(cube);
 
-    var plane_one_material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-    var plane_two_material = new THREE.MeshBasicMaterial( {color: 0x00ff00, side: THREE.DoubleSide} );
-    var plane_three_material = new THREE.MeshBasicMaterial( {color: 0xf0000f, side: THREE.DoubleSide} );
-    var plane_four_material = new THREE.MeshBasicMaterial( {color: 0x42f4f1, side: THREE.DoubleSide} );
-    var plane_five_material = new THREE.MeshBasicMaterial( {color: 0x57015b, side: THREE.DoubleSide} );
-    var plane_six_material = new THREE.MeshBasicMaterial( {color: 0xcc7116, side: THREE.DoubleSide} );
 
-    var plane_one = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), plane_one_material); //floor
-    var plane_two = new THREE.Mesh(new THREE.PlaneGeometry(1000, 500), plane_two_material); //right wall
-    var plane_three = new THREE.Mesh(new THREE.PlaneGeometry(1000, 500), plane_three_material); //left wall
-    var plane_four = new THREE.Mesh(new THREE.PlaneGeometry(1000, 500), plane_four_material); //far wall
-    var plane_five = new THREE.Mesh(new THREE.PlaneGeometry(1000, 500), plane_five_material); //back wall
-    var plane_six = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), plane_six_material); //ceiling
-
-    plane_one.position.y = -256;
-    plane_one.rotation.x = 90 * (Math.PI / 180);
-
-    plane_two.position.x = 500;
-    plane_two.rotation.y = 90 * (Math.PI / 180);
-
-    plane_three.position.x = -500;
-    plane_three.rotation.y = 90 * (Math.PI / 180);
-
-    plane_four.position.z = -500;
-
-    plane_five.position.z = 500;
-
-    plane_six.position.y = 256;
-    plane_six.rotation.x = 90 * (Math.PI / 180);
-
-    scene.add(plane_one);
-    scene.add(plane_two);
-    scene.add(plane_three);
-    scene.add(plane_four);
-    scene.add(plane_five);
-    scene.add(plane_six);
+    var room = new Room(1000, 500, [0, 0, 0]);
+    room.add_to_scene(scene);
 
     camera.position.y = -200;
-    camera.position.z = 400;
+    camera.position.z = 200;
     document.onkeydown = function (event) {
         switch (event.keyCode) {
             case 37:
-                if (camera.position.x >= plane_three.position.x + 75) {
+                if (camera.position.x >= room.left_wall.position.x + 75) {
                     camera.move_left();
                 }
                 break;
             case 38:
-                if (camera.position.z >= plane_four.position.z + 75){
+                if (camera.position.z >= room.front_wall.position.z + 75){
                     camera.move_forward();
                 }
                 break;
             case 39:
-                if (camera.position.x <= plane_two.position.x - 75){
+                if (camera.position.x <= room.right_wall.position.x - 75){
                     camera.move_right();
                 }
                 break;
             case 40:
-                if (camera.position.z <= plane_five.position.z - 75){
+                if (camera.position.z <= room.back_wall.position.z - 75){
                     camera.move_backward();
                 }
                 break;
