@@ -64,20 +64,28 @@ window.onload = function () {
     scene.add(plane_six);
 
     camera.position.y = -200;
-    camera.position.z = 256;
+    camera.position.z = 400;
     document.onkeydown = function (event) {
         switch (event.keyCode) {
             case 37:
-                camera.move_left();
+                if (camera.position.x >= plane_three.position.x + 75) {
+                    camera.move_left();
+                }
                 break;
             case 38:
-                camera.move_forward();
+                if (camera.position.z >= plane_four.position.z + 75){
+                    camera.move_forward();
+                }
                 break;
             case 39:
-                camera.move_right();
+                if (camera.position.x <= plane_two.position.x - 75){
+                    camera.move_right();
+                }
                 break;
             case 40:
-                camera.move_backward();
+                if (camera.position.z <= plane_five.position.z - 75){
+                    camera.move_backward();
+                }
                 break;
             case 65:
                 camera.look_left();
@@ -93,13 +101,10 @@ window.onload = function () {
                 break;
         }
     };
-    function animate() {
-        requestAnimationFrame( animate );
-        render();
-    }
     function render() {
+        requestAnimationFrame(render);
         renderer.render(scene, camera);
     }
-    animate();
+    render();
 };
 
