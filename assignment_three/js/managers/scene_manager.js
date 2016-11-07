@@ -1,11 +1,11 @@
-function SceneMain() {
+function SceneManager() {
     this.scene = new THREE.Scene();
     this.textures = null;
     this.room = null;
     this.teapot = null;
     this.cube = null;
 }
-SceneMain.prototype.build_scene = function (callback) {
+SceneManager.prototype.build_scene = function (callback) {
     (function (instance) {
         window.load_textures(function (textures) {
             instance.textures = textures;

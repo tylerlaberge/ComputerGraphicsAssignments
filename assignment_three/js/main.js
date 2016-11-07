@@ -1,17 +1,17 @@
 window.onload = function () {
     var WIDTH = 512;
     var HEIGHT = 512;
-    var scene_main = new SceneMain();
-    scene_main.build_scene(function () {
-        var camera_main = new CameraMain(
+    var scene_manager= new SceneManager();
+    scene_manager.build_scene(function () {
+        var camera_manager = new CameraManager(
             WIDTH, HEIGHT, {
-                'front': scene_main.room.front_wall.position.z + 100,
-                'back': scene_main.room.back_wall.position.z - 100,
-                'left': scene_main.room.left_wall.position.x + 100,
-                'right': scene_main.room.right_wall.position.x - 100
-            }, scene_main.room.floor.position.y + 100);
-        var renderer_main = new RendererMain(WIDTH, HEIGHT, scene_main, camera_main);
-        renderer_main.render();
+                'front': scene_manager.room.front_wall.position.z + 100,
+                'back': scene_manager.room.back_wall.position.z - 100,
+                'left': scene_manager.room.left_wall.position.x + 100,
+                'right': scene_manager.room.right_wall.position.x - 100
+            }, scene_manager.room.floor.position.y + 100);
+        var renderer_manager = new RendererManager(WIDTH, HEIGHT, scene_manager, camera_manager);
+        renderer_manager.render();
     });
 };
 

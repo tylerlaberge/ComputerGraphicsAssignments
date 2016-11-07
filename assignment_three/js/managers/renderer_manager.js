@@ -1,4 +1,4 @@
-function RendererMain(width, height, scene_main, camera_main) {
+function RendererManager(width, height, scene_main, camera_main) {
     this.renderer = new THREE.WebGLRenderer();
     this.width = width;
     this.height = height;
@@ -6,11 +6,11 @@ function RendererMain(width, height, scene_main, camera_main) {
     this.camera_main = camera_main;
     this.init();
 }
-RendererMain.prototype.init = function () {
+RendererManager.prototype.init = function () {
     this.renderer.setSize(this.width, this.height);
     document.body.appendChild(this.renderer.domElement);
 };
-RendererMain.prototype.render = function () {
+RendererManager.prototype.render = function () {
     var instance = this;
     requestAnimationFrame(function() {
         instance.render();

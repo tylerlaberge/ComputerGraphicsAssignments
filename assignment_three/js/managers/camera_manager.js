@@ -1,4 +1,4 @@
-function CameraMain(width, height, boundaries, fixed_y) {
+function CameraManager(width, height, boundaries, fixed_y) {
     this.width = width;
     this.height = height;
     this.boundaries = boundaries;
@@ -15,7 +15,7 @@ function CameraMain(width, height, boundaries, fixed_y) {
     );
     this.init();
 }
-CameraMain.prototype.init = function () {
+CameraManager.prototype.init = function () {
     this.camera_walk_control.front_boundary = this.boundaries['front'];
     this.camera_walk_control.back_boundary = this.boundaries['back'];
     this.camera_walk_control.left_boundary = this.boundaries['left'];
@@ -39,7 +39,7 @@ CameraMain.prototype.init = function () {
     this.camera_switch_control.camera.position.y = this.fixed_y;
     this.camera_switch_control.camera.position.z = this.boundaries['back'] - 100;
 };
-CameraMain.prototype.get_camera = function () {
+CameraManager.prototype.get_camera = function () {
     return this.camera_switch_control.camera;
 };
 
