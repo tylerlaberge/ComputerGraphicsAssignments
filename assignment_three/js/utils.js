@@ -1,7 +1,17 @@
 window.degrees_to_radians = function (degrees) {
+    /*
+     * Convert degrees to radians.
+     *
+     * @param degrees: The degrees to convert to radians.
+     */
     return degrees * (Math.PI / 180);
 };
 window.load_textures = function (callback) {
+    /*
+     * Loads all textures into a dictionary.
+     *
+     * @param callback: The function to call with the loaded textures after all textures are loaded.
+     */
     var loader = new THREE.TextureLoader();
     var texture_links = {
         'room': '../img/tiles_texture_8250083.JPG',
