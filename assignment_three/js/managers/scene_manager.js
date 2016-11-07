@@ -4,6 +4,7 @@ function SceneManager() {
     this.room = null;
     this.teapot = null;
     this.cube = null;
+    this.sphere = null;
 }
 SceneManager.prototype.build_scene = function (callback) {
     (function (instance) {
@@ -16,10 +17,17 @@ SceneManager.prototype.build_scene = function (callback) {
                 [-250, instance.room.floor.position.y + 100, instance.room.front_wall.position.z + 350],
                 instance.textures['cube']
             );
+            instance.sphere = new Sphere(
+                50,
+                [instance.room.right_wall.position.x - 350, instance.room.floor.position.y + 50, 0],
+                instance.textures['sphere']
+            );
 
             instance.cube.add_to_scene(instance.scene);
             instance.room.add_to_scene(instance.scene);
             instance.teapot.add_to_scene(instance.scene);
+            instance.sphere.add_to_scene(instance.scene);
+
             callback();
         });
     })(this);

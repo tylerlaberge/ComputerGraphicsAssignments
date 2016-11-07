@@ -6,7 +6,8 @@ window.load_textures = function (callback) {
     var texture_links = {
         'room': '../img/tiles_texture_8250083.JPG',
         'teapot': '../img/stippled_metal_2052025.JPG',
-        'cube': '../img/crosshatch_metal_grille_9280154.JPG'
+        'cube': '../img/crosshatch_metal_grille_9280154.JPG',
+        'sphere': '../img/marble_6040025.JPG'
     };
     var textures = {};
     var loaded_textures = 0;

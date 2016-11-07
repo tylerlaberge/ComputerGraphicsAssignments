@@ -1,9 +1,9 @@
-function RendererManager(width, height, scene_main, camera_main) {
+function RendererManager(width, height, scene_manager, camera_manager) {
     this.renderer = new THREE.WebGLRenderer();
     this.width = width;
     this.height = height;
-    this.scene_main = scene_main;
-    this.camera_main = camera_main;
+    this.scene_manager = scene_manager;
+    this.camera_manager = camera_manager;
     this.init();
 }
 RendererManager.prototype.init = function () {
@@ -15,8 +15,9 @@ RendererManager.prototype.render = function () {
     requestAnimationFrame(function() {
         instance.render();
     });
-    this.scene_main.cube.tick();
-    this.renderer.render(this.scene_main.scene, this.camera_main.get_camera());
+    this.scene_manager.cube.tick();
+    this.scene_manager.sphere.tick();
+    this.renderer.render(this.scene_manager.scene, this.camera_manager.get_camera());
 };
 
 
