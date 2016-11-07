@@ -1,6 +1,5 @@
-function CameraWalkControl(camera, fixed_y){
+function CameraWalkControl(camera){
     this.camera = camera;
-    this.fixed_y = fixed_y;
 
     this.move_forward_key = 87;
     this.move_backward_key = 83;
@@ -16,6 +15,8 @@ function CameraWalkControl(camera, fixed_y){
     this.back_boundary = null;
     this.left_boundary = null;
     this.right_boundary = null;
+
+    this.rotation_x = 0;
 }
 CameraWalkControl.prototype.register = function () {
     (function (instance) {
@@ -78,32 +79,36 @@ CameraWalkControl.prototype.register = function () {
     })(this);
 };
 CameraWalkControl.prototype.move_left = function () {
-    this.camera.translateX(-5);
+    this.camera.translateX(-10);
 };
 CameraWalkControl.prototype.move_right = function () {
-    this.camera.translateX(5);
+    this.camera.translateX(10);
 };
 CameraWalkControl.prototype.move_forward = function () {
-    this.camera.translateZ(-5);
-    this.camera.position.y = this.fixed_y;
+    this.camera.rotateX(-degrees_to_radians(this.rotation_x));
+    this.camera.translateZ(-10);
+    this.camera.rotateX(degrees_to_radians(this.rotation_x));
 };
 CameraWalkControl.prototype.move_backward = function () {
-    this.camera.translateZ(5);
-    this.camera.position.y = this.fixed_y;
+    this.camera.rotateX(-degrees_to_radians(this.rotation_x));
+    this.camera.translateZ(10);
+    this.camera.rotateX(degrees_to_radians(this.rotation_x));
 };
 CameraWalkControl.prototype.look_left = function () {
-    this.camera.rotateY(degrees_to_radians(1));
-    this.camera.rotation.x = 0;
-    this.camera.rotation.z = 0;
+    this.camera.rotateX(-degrees_to_radians(this.rotation_x));
+    this.camera.rotateY(degrees_to_radians(2));
+    this.camera.rotateX(degrees_to_radians(this.rotation_x));
 };
 CameraWalkControl.prototype.look_right = function () {
-    this.camera.rotateY(degrees_to_radians(-1));
-    this.camera.rotation.x = 0;
-    this.camera.rotation.z = 0;
+    this.camera.rotateX(-degrees_to_radians(this.rotation_x));
+    this.camera.rotateY(degrees_to_radians(-2));
+    this.camera.rotateX(degrees_to_radians(this.rotation_x));
 };
 CameraWalkControl.prototype.look_up = function () {
-    this.camera.rotateX(degrees_to_radians(1));
+    this.camera.rotateX(degrees_to_radians(2));
+    this.rotation_x += 2;
 };
 CameraWalkControl.prototype.look_down = function () {
-    this.camera.rotateX(degrees_to_radians(-1));
+    this.camera.rotateX(degrees_to_radians(-2));
+    this.rotation_x -= 2;
 };

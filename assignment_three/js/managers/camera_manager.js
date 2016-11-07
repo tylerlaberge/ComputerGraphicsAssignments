@@ -10,9 +10,7 @@ function CameraManager(width, height, boundaries, fixed_y) {
     );
 
     this.camera_switch_control = new CameraSwitchControl(this.perspective_camera, this.ortho_camera);
-    this.camera_walk_control = new CameraWalkControl(
-        this.camera_switch_control.camera, this.fixed_y
-    );
+    this.camera_walk_control = new CameraWalkControl(this.camera_switch_control.camera);
     this.init();
 }
 CameraManager.prototype.init = function () {
