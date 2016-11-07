@@ -9,7 +9,7 @@ window.onload = function () {
                 'back': scene_manager.room.back_wall.position.z - 100,
                 'left': scene_manager.room.left_wall.position.x + 100,
                 'right': scene_manager.room.right_wall.position.x - 100
-            }, scene_manager.room.floor.position.y + 100);
+            }, [0, scene_manager.room.floor.position.y + 100, scene_manager.room.back_wall.position.z - 100]);
         var renderer_manager = new RendererManager(WIDTH, HEIGHT, scene_manager, camera_manager);
         renderer_manager.render();
     });

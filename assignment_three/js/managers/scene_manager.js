@@ -10,7 +10,7 @@ SceneManager.prototype.build_scene = function (callback) {
         window.load_textures(function (textures) {
             instance.textures = textures;
             instance.room = new Room(2000, 500, [0, 0, 0], instance.textures['room']);
-            instance.teapot = new Teapot(100, [-250, instance.room.floor.position.y + 50, 0], instance.textures['teapot']);
+            instance.teapot = new Teapot(100, [-250, instance.room.floor.position.y + 100, 0], instance.textures['teapot']);
             instance.cube = new Cube(
                 200, 200, 200,
                 [-250, instance.room.floor.position.y + 100, instance.room.front_wall.position.z + 350],
