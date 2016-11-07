@@ -32,6 +32,7 @@ CameraManager.prototype.init = function () {
             else {
                 instance.camera_switch_control.camera.translateY(-instance.height/2 + 100);
             }
+            instance.camera_walk_control.un_register();
             instance.camera_walk_control.camera = instance.camera_switch_control.camera;
             instance.camera_walk_control.register();
         });

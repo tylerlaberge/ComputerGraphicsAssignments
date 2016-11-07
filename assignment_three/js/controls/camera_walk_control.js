@@ -17,32 +17,38 @@ function CameraWalkControl(camera){
     this.right_boundary = null;
 
     this.rotation_x = 0;
+
+    this.keyboard_listener = null;
+
 }
+CameraWalkControl.prototype.un_register = function () {
+    document.removeEventListener('keydown', this.keyboard_listener);
+};
 CameraWalkControl.prototype.register = function () {
     (function (instance) {
-        document.addEventListener('keydown', function (event) {
+        instance.keyboard_listener = function (event) {
             switch (event.keyCode) {
                 case instance.move_forward_key:
                     instance.move_forward();
-                    if (!instance.within_boundaries()){
+                    if (!instance.within_boundaries()) {
                         instance.move_backward();
                     }
                     break;
                 case instance.move_backward_key:
                     instance.move_backward();
-                    if (!instance.within_boundaries()){
+                    if (!instance.within_boundaries()) {
                         instance.move_forward();
                     }
                     break;
                 case instance.move_left_key:
                     instance.move_left();
-                    if (!instance.within_boundaries()){
+                    if (!instance.within_boundaries()) {
                         instance.move_right();
                     }
                     break;
                 case instance.move_right_key:
                     instance.move_right();
-                    if (!instance.within_boundaries()){
+                    if (!instance.within_boundaries()) {
                         instance.move_left();
                     }
                     break;
@@ -59,8 +65,9 @@ CameraWalkControl.prototype.register = function () {
                     instance.look_right();
                     break;
             }
-        });
+        };
     })(this);
+    document.addEventListener('keydown', this.keyboard_listener);
 };
 CameraWalkControl.prototype.within_boundaries = function () {
     return (
