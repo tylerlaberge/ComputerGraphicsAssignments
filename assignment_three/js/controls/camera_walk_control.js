@@ -1,4 +1,9 @@
 function CameraWalkControl(camera){
+    /*
+     * A class which handles camera walking controls.
+     *
+     * @param camera: The camera to add walking controls to.
+     */
     this.camera = camera;
 
     this.move_forward_key = 87;
@@ -22,9 +27,15 @@ function CameraWalkControl(camera){
 
 }
 CameraWalkControl.prototype.un_register = function () {
+    /*
+     * Disable this controller. Call this before switching cameras.
+     */
     document.removeEventListener('keydown', this.keyboard_listener);
 };
 CameraWalkControl.prototype.register = function () {
+    /*
+     * Enable this controller.
+     */
     (function (instance) {
         instance.keyboard_listener = function (event) {
             switch (event.keyCode) {
@@ -70,6 +81,11 @@ CameraWalkControl.prototype.register = function () {
     document.addEventListener('keydown', this.keyboard_listener);
 };
 CameraWalkControl.prototype.within_boundaries = function () {
+    /*
+     * Check whether or not the camera is within specified boundaries.
+     *
+     * @return True if within boundaries, else False. (boolean)
+     */
     return (
         this.camera.position.x > this.left_boundary
         && this.camera.position.x < this.right_boundary
@@ -78,36 +94,60 @@ CameraWalkControl.prototype.within_boundaries = function () {
     );
 };
 CameraWalkControl.prototype.move_left = function () {
+    /*
+     * Move the camera -10 units along the x-axis.
+     */
     this.camera.translateX(-10);
 };
 CameraWalkControl.prototype.move_right = function () {
+    /*
+     * Move the camera 10 units along the x-axis.
+     */
     this.camera.translateX(10);
 };
 CameraWalkControl.prototype.move_forward = function () {
+    /*
+     * Move the camera -10 units along the z-axis.
+     */
     this.camera.rotateX(-degrees_to_radians(this.rotation_x));
     this.camera.translateZ(-10);
     this.camera.rotateX(degrees_to_radians(this.rotation_x));
 };
 CameraWalkControl.prototype.move_backward = function () {
+    /*
+     * Move the camera 10 units along the z-axis.
+     */
     this.camera.rotateX(-degrees_to_radians(this.rotation_x));
     this.camera.translateZ(10);
     this.camera.rotateX(degrees_to_radians(this.rotation_x));
 };
 CameraWalkControl.prototype.look_left = function () {
+    /*
+     * Rotate the camera 2 degrees along the y-axis.
+     */
     this.camera.rotateX(-degrees_to_radians(this.rotation_x));
     this.camera.rotateY(degrees_to_radians(2));
     this.camera.rotateX(degrees_to_radians(this.rotation_x));
 };
 CameraWalkControl.prototype.look_right = function () {
+    /*
+     * Rotate the camera -2 degrees along the y-axis.
+     */
     this.camera.rotateX(-degrees_to_radians(this.rotation_x));
     this.camera.rotateY(degrees_to_radians(-2));
     this.camera.rotateX(degrees_to_radians(this.rotation_x));
 };
 CameraWalkControl.prototype.look_up = function () {
+    /*
+     * Rotate the camera 2 degrees along the x-axis.
+     */
     this.camera.rotateX(degrees_to_radians(2));
     this.rotation_x += 2;
 };
 CameraWalkControl.prototype.look_down = function () {
+    /*
+     * Rotate the camera -2 degrees along the axis.
+     */
     this.camera.rotateX(degrees_to_radians(-2));
     this.rotation_x -= 2;
 };
