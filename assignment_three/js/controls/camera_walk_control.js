@@ -23,43 +23,27 @@ CameraWalkControl.prototype.register = function () {
         document.addEventListener('keydown', function (event) {
             switch (event.keyCode) {
                 case instance.move_forward_key:
-                    if (instance.front_boundary){
-                        if (instance.camera.position.z >= instance.front_boundary){
-                            instance.move_forward();
-                        }
-                    }
-                    else {
-                        instance.move_forward();
-                    }
-                    break;
-                case instance.move_backward_key:
-                    if (instance.back_boundary) {
-                        if (instance.camera.position.z <= instance.back_boundary){
-                            instance.move_backward();
-                        }
-                    }
-                    else {
+                    instance.move_forward();
+                    if (!instance.within_boundaries()){
                         instance.move_backward();
                     }
                     break;
-                case instance.move_left_key:
-                    if (instance.left_boundary){
-                        if (instance.camera.position.x >= instance.left_boundary){
-                            instance.move_left();
-                        }
+                case instance.move_backward_key:
+                    instance.move_backward();
+                    if (!instance.within_boundaries()){
+                        instance.move_forward();
                     }
-                    else {
-                        instance.move_left();
+                    break;
+                case instance.move_left_key:
+                    instance.move_left();
+                    if (!instance.within_boundaries()){
+                        instance.move_right();
                     }
                     break;
                 case instance.move_right_key:
-                    if (instance.right_boundary){
-                        if (instance.camera.position.x <= instance.right_boundary){
-                            instance.move_right();
-                        }
-                    }
-                    else{
-                        instance.move_right();
+                    instance.move_right();
+                    if (!instance.within_boundaries()){
+                        instance.move_left();
                     }
                     break;
                 case instance.look_up_key:
@@ -77,6 +61,14 @@ CameraWalkControl.prototype.register = function () {
             }
         });
     })(this);
+};
+CameraWalkControl.prototype.within_boundaries = function () {
+    return (
+        this.camera.position.x > this.left_boundary
+        && this.camera.position.x < this.right_boundary
+        && this.camera.position.z < this.back_boundary
+        && this.camera.position.z > this.front_boundary
+    );
 };
 CameraWalkControl.prototype.move_left = function () {
     this.camera.translateX(-10);
