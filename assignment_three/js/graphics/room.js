@@ -1,4 +1,12 @@
 function Room(width, height, center, texture){
+    /*
+     * A class which wraps a room's geometry, material, and mesh.
+     *
+     * @param width: The width of the room. (int)
+     * @param height: The height of the room. (int)
+     * @param center: The center vertex of the room. [x, y, z]
+     * @param texture: The texture to apply to the room (THREE.Texture)
+     */
     this.width = width;
     this.height = height;
     this.center = center;
@@ -80,6 +88,11 @@ Room.prototype.__build_ceiling = function () {
     );
 };
 Room.prototype.add_to_scene = function (scene) {
+    /*
+     * Add this room to a scene.
+     *
+     * @param scene: The scene to add this room to. (THREE.Scene)
+     */
     scene.add(this.floor);
     scene.add(this.left_wall);
     scene.add(this.right_wall);
