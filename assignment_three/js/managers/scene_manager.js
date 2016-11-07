@@ -1,4 +1,7 @@
 function SceneManager() {
+    /*
+     * A class responsible for scene operations.
+     */
     this.scene = new THREE.Scene();
     this.textures = null;
     this.room = null;
@@ -7,6 +10,11 @@ function SceneManager() {
     this.sphere = null;
 }
 SceneManager.prototype.build_scene = function (callback) {
+    /*
+     * Builds the scene. Creates a room, cube, sphere, and teapot.
+     *
+     * @param callback: A function to call when the scene is finished building.
+     */
     (function (instance) {
         window.load_textures(function (textures) {
             instance.textures = textures;

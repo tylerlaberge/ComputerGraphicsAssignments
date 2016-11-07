@@ -1,4 +1,12 @@
 function CameraManager(width, height, boundaries, initial_position) {
+    /*
+     * A class responsible for managing camera operations.
+     *
+     * @param width: The width for cameras to use. (int)
+     * @param height: The height for cameras to use. (int)
+     * @param boundaries: The boundaries the camera can operate in. {'left', 'right', 'front', 'back'}
+     * @param initial_position: The initial position of the camera. [x, y, z]
+     */
     this.width = width;
     this.height = height;
     this.boundaries = boundaries;
@@ -17,6 +25,11 @@ function CameraManager(width, height, boundaries, initial_position) {
     this.init();
 }
 CameraManager.prototype.init = function () {
+    /*
+     * Initialize this object.
+     *
+     * Sets up boundaries and turns on camera controls.
+     */
     this.camera_walk_control.front_boundary = this.boundaries['front'];
     this.camera_walk_control.back_boundary = this.boundaries['back'];
     this.camera_walk_control.left_boundary = this.boundaries['left'];
@@ -39,6 +52,9 @@ CameraManager.prototype.init = function () {
     })(this);
 };
 CameraManager.prototype.get_camera = function () {
+    /*
+     * Get the current camera being used by this manager.
+     */
     return this.camera_switch_control.camera;
 };
 
