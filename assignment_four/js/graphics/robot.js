@@ -21,29 +21,55 @@ function Robot(width, height, depth, center){
 
     this.forearm.length = this.height;
     this.upperarm.length = this.height;
+    this.shoulder.radius = 20;
+    this.elbow.radius = 20;
     this.body.length = 25;
 
+
     this.__build_robot();
+    this.rotate_upperarm(0, 0, 45);
+    this.rotate_forearm(45, 0, -45);
 }
-Robot.prototype.rotate_shoulderX = function (rotation_x) {
-    this.shoulder.translateY(-(this.upperarm.length + this.forearm.length - (3*40) - this.body.length));
+
+Robot.prototype.rotate_shoulder = function (rotation_x, rotation_y, rotation_z) {
+    this.shoulder.translateY(-(this.shoulder.radius*2 + this.upperarm.length));
     this.shoulder.rotateX(degrees_to_radians(rotation_x));
-    this.shoulder.translateY(this.upperarm.length + this.forearm.length - (3*40) - this.body.length);
-};
-Robot.prototype.rotate_shoulderZ = function(rotation_z) {
-    this.shoulder.translateY(-(this.upperarm.length + this.forearm.length - (3*40) - this.body.length));
+    this.shoulder.rotateY(degrees_to_radians(rotation_y));
     this.shoulder.rotateZ(degrees_to_radians(rotation_z));
-    this.shoulder.translateY(this.upperarm.length + this.forearm.length - (3*40) - this.body.length);
+    this.shoulder.translateY(this.shoulder.radius*2 + this.upperarm.length);
 };
-Robot.prototype.rotate_elbowX = function (rotation_x) {
-    this.elbow.translateY(-(this.forearm.length - (3*40) - this.body.length));
+Robot.prototype.rotate_upperarm = function(rotation_x, rotation_y, rotation_z) {
+    this.upperarm.translateY(-(this.shoulder.radius*2 + this.upperarm.length));
+    this.upperarm.rotateX(degrees_to_radians(rotation_x));
+    this.upperarm.rotateY(degrees_to_radians(rotation_y));
+    this.upperarm.rotateZ(degrees_to_radians(rotation_z));
+    this.upperarm.translateY(this.shoulder.radius*2 + this.upperarm.length);
+};
+Robot.prototype.rotate_elbow = function (rotation_x, rotation_y, rotation_z) {
+    this.elbow.translateY(-(this.elbow.radius*2 + this.forearm.length));
     this.elbow.rotateX(degrees_to_radians(rotation_x));
-    this.elbow.translateY(this.forearm.length - (3*40) - this.body.length);
-};
-Robot.prototype.rotate_elbowZ = function(rotation_z) {
-    this.elbow.translateY(-(this.forearm.length - (3*40) - this.body.length));
+    this.elbow.rotateY(degrees_to_radians(rotation_y));
     this.elbow.rotateZ(degrees_to_radians(rotation_z));
-    this.elbow.translateY(this.forearm.length - (3*40) - this.body.length);
+    this.elbow.translateY(this.elbow.radius*2 + this.forearm.length);
+};
+Robot.prototype.rotate_forearm = function (rotation_x, rotation_y, rotation_z) {
+    this.forearm.translateY(-(this.elbow.radius*2));
+    this.forearm.rotateX(degrees_to_radians(rotation_x));
+    this.forearm.rotateY(degrees_to_radians(rotation_y));
+    this.forearm.rotateZ(degrees_to_radians(rotation_z));
+    this.forearm.translateY(this.elbow.radius*2);
+};
+Robot.prototype.add_to_scene = function (scene) {
+    /*
+     * Add this robot to a scene.
+     *
+     * @param scene: The scene to add the robot to. (THREE.Scene)
+     */
+    scene.add(this.body);
+};
+Robot.prototype.tick = function () {
+    this.rotate_shoulder(0, 1, 0);
+    this.rotate_elbow(0, 2, 0);
 };
 Robot.prototype.__build_robot = function () {
     this.__build_body();
@@ -119,14 +145,4 @@ Robot.prototype.__build_forearm = function() {
 
     this.elbow.add(this.forearm);
 };
-Robot.prototype.add_to_scene = function (scene) {
-    /*
-     * Add this robot to a scene.
-     *
-     * @param scene: The scene to add the robot to. (THREE.Scene)
-     */
-    scene.add(this.body);
-};
-
-
 

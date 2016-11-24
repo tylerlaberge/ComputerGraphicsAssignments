@@ -31,6 +31,7 @@ RendererManager.prototype.render = function () {
     });
     this.scene_manager.cube.tick();
     this.scene_manager.sphere.tick();
+    this.scene_manager.robot.tick();
     this.renderer.render(this.scene_manager.scene, this.camera_manager.get_camera());
 };
 
