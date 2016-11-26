@@ -13,9 +13,9 @@ function Robot(width, height, depth, center, base_texture, arm_texture, joint_te
     this.depth = depth;
     this.center = center;
 
-    this.base_material = new THREE.MeshBasicMaterial({map:base_texture, side: THREE.DoubleSide});
-    this.arm_material = new THREE.MeshBasicMaterial({map:arm_texture, side: THREE.DoubleSide});
-    this.joint_material = new THREE.MeshBasicMaterial({map:joint_texture, side: THREE.DoubleSide});
+    this.base_material = new THREE.MeshLambertMaterial({map:base_texture, side: THREE.DoubleSide});
+    this.arm_material = new THREE.MeshLambertMaterial({map:arm_texture, side: THREE.DoubleSide});
+    this.joint_material = new THREE.MeshLambertMaterial({map:joint_texture, side: THREE.DoubleSide});
 
     this.forearm = new THREE.Object3D();
     this.upperarm = new THREE.Object3D();

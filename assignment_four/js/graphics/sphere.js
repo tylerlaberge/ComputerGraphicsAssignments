@@ -9,7 +9,7 @@ function Sphere(radius, center, texture){
     this.radius = radius;
 
     this.geometry = new THREE.SphereGeometry(this.radius, 100, 100);
-    this.material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
+    this.material = new THREE.MeshLambertMaterial({map: texture, side: THREE.DoubleSide});
     this.mesh = new THREE.Mesh(this.geometry, this.material);
 
     this.mesh.position.x = center[0];

@@ -11,7 +11,7 @@ function Room(width, height, center, texture){
     this.height = height;
     this.center = center;
 
-    this.material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
+    this.material = new THREE.MeshLambertMaterial({map: texture, side: THREE.DoubleSide});
 
     this.floor = this.__build_floor();
     this.left_wall = this.__build_left_wall();

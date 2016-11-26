@@ -3,12 +3,16 @@ function SceneManager() {
      * A class responsible for scene operations.
      */
     this.scene = new THREE.Scene();
+
     this.textures = null;
     this.room = null;
     this.teapot = null;
     this.cube = null;
     this.sphere = null;
     this.robot = null;
+
+    this.ambient_light = new THREE.AmbientLight( 0x404040 );
+    this.spot_light = new THREE.PointLight({color: 0xffffff, intensity: 1, distance: 2000});
 }
 SceneManager.prototype.build_scene = function (callback) {
     /*
@@ -40,6 +44,13 @@ SceneManager.prototype.build_scene = function (callback) {
             instance.sphere.add_to_scene(instance.scene);
             instance.robot.add_to_scene(instance.scene);
 
+            instance.spot_light.position.set(
+                instance.room.left_wall.position.x + 50,
+                instance.room.ceiling.position.y - 50,
+                instance.room.back_wall.position.z - 50
+            );
+            instance.scene.add(instance.spot_light);
+            instance.scene.add(instance.ambient_light);
             callback();
         });
     })(this);
