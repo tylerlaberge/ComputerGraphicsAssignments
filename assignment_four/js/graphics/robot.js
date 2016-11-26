@@ -18,17 +18,21 @@ function Robot(width, height, depth, center){
     this.body = new THREE.Object3D();
     this.shoulder = new THREE.Object3D();
     this.elbow = new THREE.Object3D();
+    this.hand = new THREE.Object3D();
+    this.ball = new THREE.Object3D();
+    this.ball_sphere = null;
 
     this.forearm.length = this.height;
     this.upperarm.length = this.height;
     this.shoulder.radius = 20;
     this.elbow.radius = 20;
+    this.hand.radius = 20;
     this.body.length = 25;
 
+    this.__reverse = false;
+    this.__attached = false;
 
     this.__build_robot();
-    this.rotate_upperarm(0, 0, 45);
-    this.rotate_forearm(45, 0, -45);
 }
 
 Robot.prototype.rotate_shoulder = function (rotation_x, rotation_y, rotation_z) {
@@ -68,13 +72,51 @@ Robot.prototype.add_to_scene = function (scene) {
     scene.add(this.body);
 };
 Robot.prototype.tick = function () {
-    this.rotate_shoulder(0, 1, 0);
-    this.rotate_elbow(0, 2, 0);
+    if (!this.__reverse) {
+        if (this.forearm.rotation.z > -Math.PI/2){
+            this.rotate_forearm(0, 0, -1);
+        }
+        else if (this.upperarm.rotation.z > -Math.sqrt(2)/2) {
+            this.rotate_upperarm(0, 0, -0.5);
+        }
+        else {
+            if (this.__attached) {
+                this.hand.remove(this.ball);
+                this.ball_sphere.position.x = this.center[0] + Math.sqrt(Math.pow(this.upperarm.length, 2)
+                        + Math.pow(this.hand.radius + this.forearm.length, 2));
+                this.ball_sphere.position.y = this.center[1];
+                this.ball_sphere.position.z = this.center[2];
+                this.body.add(this.ball);
+                this.__attached = false;
+            }
+            else {
+                this.body.remove(this.ball);
+                this.ball_sphere.position.x = this.center[0];
+                this.ball_sphere.position.y = this.center[1] + this.upperarm.length + this.forearm.length + this.hand.radius * 2;
+                this.ball_sphere.position.z = this.center[2];
+                this.hand.add(this.ball);
+                this.__attached = true;
+            }
+            this.__reverse = true;
+        }
+    }
+    else {
+        if (this.upperarm.rotation.z < 0) {
+            this.rotate_upperarm(0, 0, 0.5);
+        }
+        else if (this.forearm.rotation.z < 0) {
+            this.rotate_forearm(0, 0, 1);
+        }
+        else {
+            this.__reverse = false;
+        }
+    }
 };
 Robot.prototype.__build_robot = function () {
     this.__build_body();
     this.__build_upperarm();
     this.__build_forearm();
+    this.__build_ball();
 };
 Robot.prototype.__build_body = function () {
     var cube = new THREE.Mesh(
@@ -140,9 +182,24 @@ Robot.prototype.__build_forearm = function() {
     sphere.position.y = cylinder.position.y + this.forearm.length/2;
     sphere.position.z = this.center[2];
 
+    this.hand.add(sphere);
+
     this.forearm.add(cylinder);
-    this.forearm.add(sphere);
+    this.forearm.add(this.hand);
 
     this.elbow.add(this.forearm);
+};
+Robot.prototype.__build_ball = function () {
+    this.ball_sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(20, 100, 100),
+        new THREE.MeshBasicMaterial({color:0x00ff00})
+    );
+    this.ball_sphere.position.x = this.center[0] + Math.sqrt(Math.pow(this.upperarm.length, 2)
+            + Math.pow(this.hand.radius + this.forearm.length, 2));
+    this.ball_sphere.position.y = this.center[1];
+    this.ball_sphere.position.z = this.center[2];
+
+    this.ball.add(this.ball_sphere);
+    this.body.add(this.ball);
 };
 
