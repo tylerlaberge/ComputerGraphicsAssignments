@@ -31,7 +31,8 @@ SceneManager.prototype.build_scene = function (callback) {
                 [instance.room.right_wall.position.x - 350, instance.room.floor.position.y + 50, 0],
                 instance.textures['sphere']
             );
-            instance.robot = new Robot(200, 200, 200, [0, instance.room.floor.position.y, 0]);
+            instance.robot = new Robot(200, 200, 200, [0, instance.room.floor.position.y, 0],
+                instance.textures['robot_base'], instance.textures['robot_arm'], instance.textures['robot_joint']);
 
             instance.cube.add_to_scene(instance.scene);
             instance.room.add_to_scene(instance.scene);

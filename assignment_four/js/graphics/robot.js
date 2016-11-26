@@ -1,4 +1,4 @@
-function Robot(width, height, depth, center){
+function Robot(width, height, depth, center, base_texture, arm_texture, joint_texture){
     /*
      * A class which wraps the creation of a robots torso, arm, hand, and base.
      *
@@ -12,6 +12,10 @@ function Robot(width, height, depth, center){
     this.height = height;
     this.depth = depth;
     this.center = center;
+
+    this.base_material = new THREE.MeshBasicMaterial({map:base_texture, side: THREE.DoubleSide});
+    this.arm_material = new THREE.MeshBasicMaterial({map:arm_texture, side: THREE.DoubleSide});
+    this.joint_material = new THREE.MeshBasicMaterial({map:joint_texture, side: THREE.DoubleSide});
 
     this.forearm = new THREE.Object3D();
     this.upperarm = new THREE.Object3D();
@@ -84,7 +88,7 @@ Robot.prototype.tick = function () {
                 this.hand.remove(this.ball);
                 this.ball_sphere.position.x = this.center[0] + Math.sqrt(Math.pow(this.upperarm.length, 2)
                         + Math.pow(this.hand.radius + this.forearm.length, 2));
-                this.ball_sphere.position.y = this.center[1];
+                this.ball_sphere.position.y = this.center[1] + this.body.length/2;
                 this.ball_sphere.position.z = this.center[2];
                 this.body.add(this.ball);
                 this.__attached = false;
@@ -121,11 +125,11 @@ Robot.prototype.__build_robot = function () {
 Robot.prototype.__build_body = function () {
     var cube = new THREE.Mesh(
         new THREE.BoxGeometry(this.width, this.body.length, this.depth),
-        new THREE.MeshBasicMaterial({color:0xff0000})
+        this.base_material
     );
     var sphere = new THREE.Mesh(
         new THREE.SphereGeometry(20, 100, 100),
-        new THREE.MeshBasicMaterial({color:0x00ff00})
+        this.joint_material
     );
 
     cube.position.x = this.center[0];
@@ -143,11 +147,11 @@ Robot.prototype.__build_body = function () {
 Robot.prototype.__build_upperarm = function() {
     var cylinder = new THREE.Mesh(
         new THREE.CylinderGeometry(20, 20, this.upperarm.length),
-        new THREE.MeshBasicMaterial({color:0x0000ff})
+        this.arm_material
     );
     var sphere = new THREE.Mesh(
         new THREE.SphereGeometry(20, 100, 100),
-        new THREE.MeshBasicMaterial({color:0x00ff00})
+        this.joint_material
     );
 
     cylinder.position.x = this.center[0];
@@ -167,11 +171,11 @@ Robot.prototype.__build_upperarm = function() {
 Robot.prototype.__build_forearm = function() {
     var cylinder = new THREE.Mesh(
         new THREE.CylinderGeometry(20, 20, this.forearm.length),
-        new THREE.MeshBasicMaterial({color:0x0000ff})
+        this.arm_material
     );
     var sphere = new THREE.Mesh(
         new THREE.SphereGeometry(20, 100, 100),
-        new THREE.MeshBasicMaterial({color:0x00ff00})
+        this.joint_material
     );
 
     cylinder.position.x = this.center[0];
@@ -192,11 +196,11 @@ Robot.prototype.__build_forearm = function() {
 Robot.prototype.__build_ball = function () {
     this.ball_sphere = new THREE.Mesh(
         new THREE.SphereGeometry(20, 100, 100),
-        new THREE.MeshBasicMaterial({color:0x00ff00})
+        this.joint_material
     );
     this.ball_sphere.position.x = this.center[0] + Math.sqrt(Math.pow(this.upperarm.length, 2)
             + Math.pow(this.hand.radius + this.forearm.length, 2));
-    this.ball_sphere.position.y = this.center[1];
+    this.ball_sphere.position.y = this.center[1] + this.body.length/2;
     this.ball_sphere.position.z = this.center[2];
 
     this.ball.add(this.ball_sphere);

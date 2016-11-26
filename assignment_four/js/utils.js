@@ -17,7 +17,10 @@ window.load_textures = function (callback) {
         'room': '../img/tiles_texture_8250083.JPG',
         'teapot': '../img/stippled_metal_2052025.JPG',
         'cube': '../img/crosshatch_metal_grille_9280154.JPG',
-        'sphere': '../img/marble_6040025.JPG'
+        'sphere': '../img/marble_6040025.JPG',
+        'robot_base': '../img/stippled_metal_2052025.JPG',
+        'robot_arm': '../img/brushed_gold_050549.JPG',
+        'robot_joint': '../img/metal_crosshatch_pattern_6190173.JPG'
     };
     var textures = {};
     var loaded_textures = 0;
