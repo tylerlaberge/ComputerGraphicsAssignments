@@ -16,7 +16,7 @@ function SceneManager() {
 }
 SceneManager.prototype.build_scene = function (callback) {
     /*
-     * Builds the scene. Creates a room, cube, sphere, and teapot.
+     * Builds the scene. Creates a room, cube, sphere, teapot, and robot.
      *
      * @param callback: A function to call when the scene is finished building.
      */

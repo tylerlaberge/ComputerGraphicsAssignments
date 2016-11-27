@@ -1,12 +1,14 @@
 function Robot(width, height, depth, center, base_texture, arm_texture, joint_texture){
     /*
-     * A class which wraps the creation of a robots torso, arm, hand, and base.
+     * A class which wraps the creation and animation of the robot arm model.
      *
      * @param width: The width of the robot. (int)
      * @param height: The height of the robot. (int)
      * @param depth: The depth of the robot. (int)
      * @param center: The center vertex of the robot. [x, y, z]
-     * @param texture: The texture to apply to the robot (THREE.Texture)
+     * @param base_texture: The texture to apply to the robot's base (THREE.Texture)
+     * @param arm_texture: The texture to apply to the robot's arms (THREE.Texture)
+     * @param joint_texture: The texture to apply to the robot's joints (THREE.Texture)
      */
     this.width = width;
     this.height = height;
@@ -23,8 +25,8 @@ function Robot(width, height, depth, center, base_texture, arm_texture, joint_te
     this.shoulder = new THREE.Object3D();
     this.elbow = new THREE.Object3D();
     this.hand = new THREE.Object3D();
-    this.ball = new THREE.Object3D();
-    this.ball_sphere = null;
+    this.ball = new THREE.Object3D(); //The ball that is picked up by the robot arm.
+    this.ball_sphere = null; // The sphere that makes up the ball Object3d.
 
     this.forearm.length = this.height;
     this.upperarm.length = this.height;
@@ -33,13 +35,20 @@ function Robot(width, height, depth, center, base_texture, arm_texture, joint_te
     this.hand.radius = 20;
     this.body.length = 25;
 
-    this.__reverse = false;
-    this.__attached = false;
+    this.__reverse = false; //Used in the tick function to determine when to animate in the reverse direction
+    this.__attached = false; //Used in the tick function to determine if the ball is currently attached to the robot.
 
     this.__build_robot();
 }
 
 Robot.prototype.rotate_shoulder = function (rotation_x, rotation_y, rotation_z) {
+    /*
+     * Rotate this Robots shoulder.
+     *
+     * @param rotation_x: The amount to rotate about the x-axis.
+     * @param rotation_y: The amount to rotate about the y-axis.
+     * @param rotation_z: The amount to rotate about the z-axis.
+     */
     this.shoulder.translateY(-(this.shoulder.radius*2 + this.upperarm.length));
     this.shoulder.rotateX(degrees_to_radians(rotation_x));
     this.shoulder.rotateY(degrees_to_radians(rotation_y));
@@ -47,6 +56,13 @@ Robot.prototype.rotate_shoulder = function (rotation_x, rotation_y, rotation_z) 
     this.shoulder.translateY(this.shoulder.radius*2 + this.upperarm.length);
 };
 Robot.prototype.rotate_upperarm = function(rotation_x, rotation_y, rotation_z) {
+    /*
+     * Rotate this Robots upperarm.
+     *
+     * @param rotation_x: The amount to rotate about the x-axis.
+     * @param rotation_y: The amount to rotate about the y-axis.
+     * @param rotation_z: The amount to rotate about the z-axis.
+     */
     this.upperarm.translateY(-(this.shoulder.radius*2 + this.upperarm.length));
     this.upperarm.rotateX(degrees_to_radians(rotation_x));
     this.upperarm.rotateY(degrees_to_radians(rotation_y));
@@ -54,6 +70,13 @@ Robot.prototype.rotate_upperarm = function(rotation_x, rotation_y, rotation_z) {
     this.upperarm.translateY(this.shoulder.radius*2 + this.upperarm.length);
 };
 Robot.prototype.rotate_elbow = function (rotation_x, rotation_y, rotation_z) {
+    /*
+     * Rotate this Robots elbow.
+     *
+     * @param rotation_x: The amount to rotate about the x-axis.
+     * @param rotation_y: The amount to rotate about the y-axis.
+     * @param rotation_z: The amount to rotate about the z-axis.
+     */
     this.elbow.translateY(-(this.elbow.radius*2 + this.forearm.length));
     this.elbow.rotateX(degrees_to_radians(rotation_x));
     this.elbow.rotateY(degrees_to_radians(rotation_y));
@@ -61,6 +84,13 @@ Robot.prototype.rotate_elbow = function (rotation_x, rotation_y, rotation_z) {
     this.elbow.translateY(this.elbow.radius*2 + this.forearm.length);
 };
 Robot.prototype.rotate_forearm = function (rotation_x, rotation_y, rotation_z) {
+    /*
+     * Rotate this Robots forearm.
+     *
+     * @param rotation_x: The amount to rotate about the x-axis.
+     * @param rotation_y: The amount to rotate about the y-axis.
+     * @param rotation_z: The amount to rotate about the z-axis.
+     */
     this.forearm.translateY(-(this.elbow.radius*2));
     this.forearm.rotateX(degrees_to_radians(rotation_x));
     this.forearm.rotateY(degrees_to_radians(rotation_y));
@@ -76,6 +106,11 @@ Robot.prototype.add_to_scene = function (scene) {
     scene.add(this.body);
 };
 Robot.prototype.tick = function () {
+    /*
+     *  Animate one tick towards picking up/dropping off the ball.
+     *
+     *  Call this method in render to animate this robot.
+     */
     if (!this.__reverse) {
         if (this.forearm.rotation.z > -Math.PI/2){
             this.rotate_forearm(0, 0, -1);
@@ -117,12 +152,18 @@ Robot.prototype.tick = function () {
     }
 };
 Robot.prototype.__build_robot = function () {
+    /*
+     * Build the robot model.
+     */
     this.__build_body();
     this.__build_upperarm();
     this.__build_forearm();
     this.__build_ball();
 };
 Robot.prototype.__build_body = function () {
+    /*
+     * Build that base of the robot.
+     */
     var cube = new THREE.Mesh(
         new THREE.BoxGeometry(this.width, this.body.length, this.depth),
         this.base_material
@@ -145,6 +186,9 @@ Robot.prototype.__build_body = function () {
     this.body.add(this.shoulder);
 };
 Robot.prototype.__build_upperarm = function() {
+    /*
+     * Build the upperarm of the robot.
+     */
     var cylinder = new THREE.Mesh(
         new THREE.CylinderGeometry(20, 20, this.upperarm.length),
         this.arm_material
@@ -169,6 +213,9 @@ Robot.prototype.__build_upperarm = function() {
     this.shoulder.add(this.upperarm);
 };
 Robot.prototype.__build_forearm = function() {
+    /*
+     * Build the forearm of the robot.
+     */
     var cylinder = new THREE.Mesh(
         new THREE.CylinderGeometry(20, 20, this.forearm.length),
         this.arm_material
@@ -194,6 +241,9 @@ Robot.prototype.__build_forearm = function() {
     this.elbow.add(this.forearm);
 };
 Robot.prototype.__build_ball = function () {
+    /*
+     * Build the ball that the robot picks up during it's animation.
+     */
     this.ball_sphere = new THREE.Mesh(
         new THREE.SphereGeometry(20, 100, 100),
         this.joint_material
